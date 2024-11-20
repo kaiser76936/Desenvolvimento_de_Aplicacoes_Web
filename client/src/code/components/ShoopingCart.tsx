@@ -1,29 +1,32 @@
-// React imports.
-import React from "react";
+// ShoppingCart.tsx
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { RootState } from '../state/store';
+import { removeFromCart } from '../state/cartSlice';
+import { Product } from '../../models/Product';
 
-// Material-UI imports.
-import Button from "@mui/material/Button";
-import NewContactIcon from "@mui/icons-material/ContactMail";
-import NewMessageIcon from "@mui/icons-material/Email";
+export const ShoppingCart: React.FC = () => {
+  const cartItems = useSelector((state: RootState) => state.cart.items);
+  const dispatch = useDispatch();
 
+  const handleRemove = (id: number) => {
+    dispatch(removeFromCart(id));
+  };
 
-/**
- * Toolbar.
- */
-const Toolbar = ({ state }) => (
-
-  <div>
-    <Button variant="contained" color="primary" size="small" style={{ marginRight:10 }}
-      onClick={ () => state.showComposeMessage("new") } >
-      <NewMessageIcon style={{ marginRight:10 }} />New Message
-    </Button>
-    <Button variant="contained" color="primary" size="small" style={{ marginRight:10 }}
-      onClick={ state.showAddContact } >
-      <NewContactIcon style={{ marginRight:10 }} />New Contact
-    </Button>
-  </div>
-
-);
-
-
-export default Toolbar;
+  return (
+    <div>
+      <h1>Shopping Cart</h1>
+      {cartItems.length === 0 ? (
+        <p>Your cart is empty.</p>
+      ) : (
+        cartItems.map((item: Product) => (
+          <div key={item.id}>
+            <p>{item.name}</p>
+            <p>Price: ${item.price}</p>
+            <button onClick={() => handleRemove(item.id)}>Remove</button>
+          </div>
+        ))
+      )}
+    </div>
+  );
+};

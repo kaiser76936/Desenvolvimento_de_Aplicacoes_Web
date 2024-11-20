@@ -2,30 +2,29 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.userController = void 0;
 const express_1 = require("express");
+const database_1 = require("../utils/database");
 const router = (0, express_1.Router)();
-// Mock data
-const users = [
-    { id: 1, name: 'User 1', email: 'user1@example.com' },
-    { id: 2, name: 'User 2', email: 'user2@example.com' },
-];
 // Get all users
 router.get('/', (req, res) => {
-    res.json(users);
+    database_1.userDB.find({}, (err, users) => {
+        if (err) {
+            return res.status(500).send('Error fetching users');
+        }
+        res.json(users);
+    });
 });
 // Get user by ID
 router.get('/:id', (req, res) => {
-    const user = users.find(u => u.id === parseInt(req.params.id));
-    if (user) {
-        res.json(user);
-    }
-    else {
-        res.status(404).send('User not found');
-    }
-});
-// Create new user
-router.post('/', (req, res) => {
-    const newUser = Object.assign({ id: users.length + 1 }, req.body);
-    users.push(newUser);
-    res.status(201).json(newUser);
+    database_1.userDB.findOne({ id: parseInt(req.params.id) }, (err, user) => {
+        if (err) {
+            return res.status(500).send('Error fetching user');
+        }
+        if (user) {
+            res.json(user);
+        }
+        else {
+            res.status(404).send('User not found');
+        }
+    });
 });
 exports.userController = router;

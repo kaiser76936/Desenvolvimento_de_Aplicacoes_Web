@@ -1,37 +1,58 @@
 import { Router } from 'express';
+import { orderDB, addOrder, removeOrder } from '../utils/database';
+import { Order } from '../models/order';
 
 const router = Router();
 
-// Define an interface for the order object
-interface Order {
-  id: number;
-  product: string;
-  quantity: number;
-}
-
-// Mock data for orders
-const orders: Order[] = [];
-
 // Get all orders
 router.get('/', (req, res) => {
-  res.json(orders);
+  orderDB.find({}, (err: Error | null, orders: Order[]) => {
+    if (err) {
+      return res.status(500).send('Error fetching orders');
+    }
+    res.json(orders);
+  });
 });
 
 // Get order by ID
 router.get('/:id', (req, res) => {
-  const order = orders.find(o => o.id === parseInt(req.params.id));
-  if (order) {
-    res.json(order);
-  } else {
-    res.status(404).send('Order not found');
-  }
+  const id = parseInt(req.params.id);
+  orderDB.findOne({ id }, (err: Error | null, order: Order | null) => {
+    if (err) {
+      return res.status(500).send('Error fetching order');
+    }
+    if (order) {
+      res.json(order);
+    } else {
+      res.status(404).send('Order not found');
+    }
+  });
 });
 
 // Create new order
-router.post('/', (req, res) => {
-  const newOrder: Order = { id: orders.length + 1, ...req.body };
-  orders.push(newOrder);
-  res.status(201).json(newOrder);
+router.post('/', async (req, res) => {
+  try {
+    const { product, quantity } = req.body;
+    const { id } = await addOrder({ product, quantity });
+    res.status(201).json({ id, product, quantity });
+  } catch (error) {
+    res.status(500).send('Error creating order');
+  }
+});
+
+// Delete an order
+router.delete('/:id', async (req, res) => {
+  try {
+    const id = parseInt(req.params.id);
+    const success = await removeOrder(id);
+    if (success) {
+      res.status(200).send('Order deleted');
+    } else {
+      res.status(404).send('Order not found');
+    }
+  } catch (error) {
+    res.status(500).send('Error deleting order');
+  }
 });
 
 export const orderController = router;
