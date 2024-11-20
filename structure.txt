@@ -1,0 +1,26 @@
+Structure Project:
+server-->package.json
+	  |->package-lock.json
+	  |->tscongif.json
+	  |->build
+	  |->node_modules
+	  |->server->serverInfo.json
+	  |->src->main.ts, server.ts serverInfo.ts
+	  		->api-> productController.ts, userController.ts, orderController.ts
+			->models-> product.ts, user.ts, order.ts
+			->utils-> logger.ts, validator.ts
+			->server.ts
+
+client-->.babelrc
+	  |->package.json
+	  |->package-lock.json
+	  |->postcss.config.js
+	  |->tscongif.json
+	  |->webpack.congif.json
+	  |->dist
+	  |->node_modules
+	  |->src->index.html
+	  		->css->main.css
+			->code->components->ProductList.tsx, ProductView.tsx, ShoopingCart.tsx, UserLogin.tsx
+				  ->state-> store.ts
+				  ->app.tsx
