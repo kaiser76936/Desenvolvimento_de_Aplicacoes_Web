@@ -1,5 +1,5 @@
 {
-  "name": "lab6---rest-api-server",
+  "name": "server",
   "version": "1.0.0",
   "main": "main.js",
   "scripts": {
