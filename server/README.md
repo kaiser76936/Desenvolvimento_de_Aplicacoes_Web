@@ -33,6 +33,15 @@ Fornece funções de validação para garantir a integridade e o formato correto
 ### src/tests/database.test.ts
 Contém unit tests para as operações de banco de dados, incluindo a adição e remoção de users e produtos. Garante que as funções do banco de dados funcionem conforme o esperado e manipulem os dados corretamente.
 
+### src/tests/insertOrders.js
+Ficheiro de teste para inserir dados na db orders.db
+
+### src/tests/insertProducts.js
+Ficheiro de teste para inserir dados na db products.db
+
+### src/tests/insertUsers.js
+Ficheiro de teste para inserir dados na db users.db
+
 ### src/main.ts
 Ponto de entrada da aplicação. Carrega as configurações do servidor a partir de um arquivo JSON e inicia o servidor ouvindo no host e porta especificados.
 

@@ -28,4 +28,15 @@ router.get('/:id', (req, res) => {
   });
 });
 
+router.post('/', async (req, res) => {
+  try {
+      const { name, email } = req.body;
+      const { id } = await addUser({ name, email });
+      res.status(201).json({ id, name, email });
+  } catch (error) {
+      res.status(500).send('Error creating user');
+  }
+});
+
+
 export const userController = router;

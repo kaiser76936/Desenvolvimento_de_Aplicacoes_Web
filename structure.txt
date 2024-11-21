@@ -1,7 +1,8 @@
 Structure Project:
-server-->package.json
+server-->jest.config.js
+	  |->package.json
 	  |->package-lock.json
-	  |->tscongif.json
+	  |->tsconfig.json
 	  |->build
 	  |->data->orders.db, products.db, users.db
 	  |->node_modules
@@ -9,18 +10,20 @@ server-->package.json
 	  |->src->main.ts, server.ts, serverInfo.ts
 	  		->api-> orderController.ts, productController.ts, userController.ts
 			->models-> order.ts, product.ts, user.ts
+			->tests->database.test.ts, insertOrders.ts, insertProducts.ts, insertUsers.ts
 			->utils-> database.ts, logger.ts, validator.ts
 
 client-->.babelrc
 	  |->package.json
 	  |->package-lock.json
 	  |->postcss.config.js
-	  |->tscongif.json
+	  |->tsconfig.json
 	  |->webpack.congif.json
 	  |->dist
 	  |->node_modules
 	  |->src->index.html
 	  		->css->main.css
-			->code->components->ProductList.tsx, ProductView.tsx, ShoopingCart.tsx, UserLogin.tsx
-				  ->state-> store.ts
+			->code->components->ProductList.tsx, ProductView.tsx, ShoppingCart.tsx, UserLogin.tsx
+				  ->state-> cartSlice.ts, productsSlice.ts, store.ts, userSlice.ts
 				  ->app.tsx
+			->models->Products.ts

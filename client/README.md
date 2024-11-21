@@ -18,7 +18,7 @@ Define a componente `ProductList`, que obtém e mostra uma lista de produtos a p
 ### code/components/ProductView.tsx
 Define a componente `ProductView`, responsável por exibir os detalhes de um único produto, incluindo nome e preço. Permite adicionar o produto ao carrinho através de uma ação do Redux.
 
-### code/components/ShoopingCart.tsx
+### code/components/ShoppingCart.tsx
 Define a componente `ShoppingCart`, que exibe os itens atualmente no carrinho de compras. Permite remover produtos do carrinho utilizando ações do Redux.
 
 ### code/components/UserLogin.tsx
