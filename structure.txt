@@ -1,29 +1,65 @@
 Structure Project:
-server-->jest.config.js
-	  |->package.json
-	  |->package-lock.json
-	  |->tsconfig.json
-	  |->build
-	  |->data->orders.db, products.db, users.db
-	  |->node_modules
-	  |->server->serverInfo.json
-	  |->src->main.ts, server.ts, serverInfo.ts
-	  		->api-> orderController.ts, productController.ts, userController.ts
-			->models-> order.ts, product.ts, user.ts
-			->tests->database.test.ts, insertOrders.ts, insertProducts.ts, insertUsers.ts
-			->utils-> database.ts, logger.ts, validator.ts
+server
+	|->jest.config.js
+	|->package.json
+	|->package-lock.json
+	|->tsconfig.json
+	|->build
+	|->data-
+		|->orders.db
+		|->products.db
+		|->users.db
+	|->node_modules
+	|->server
+		|->serverInfo.json
+	|->src
+		|->main.ts
+		|->server.ts
+		|->serverInfo.ts
+	  	|->api
+			|->orderController.ts
+			|->productController.ts
+			|->userController.ts
+		|->models
+			|->order.ts
+			|->product.ts
+			|->user.ts
+		|->tests
+			database.test.ts
+			|->insertOrders.ts
+			|->insertProducts.ts
+			|->insertUsers.ts
+		|->utils
+			|->database.ts
+			|->logger.ts
+			|->validator.ts
 
-client-->.babelrc
-	  |->package.json
-	  |->package-lock.json
-	  |->postcss.config.js
-	  |->tsconfig.json
-	  |->webpack.congif.json
-	  |->dist
-	  |->node_modules
-	  |->src->index.html
-	  		->css->main.css
-			->code->components->ProductList.tsx, ProductView.tsx, ShoppingCart.tsx, UserLogin.tsx
-				  ->state-> cartSlice.ts, productsSlice.ts, store.ts, userSlice.ts
-				  ->app.tsx
-			->models->Products.ts
+client
+	|->.babelrc
+	|->package.json
+	|->package-lock.json
+	|->postcss.config.js
+	|->tsconfig.json
+	|->webpack.congif.json
+	|->dist
+	|->node_modules
+	|->images
+		|->image1,image2,etc
+	|->src
+	  	|->index.html
+	  	|->css
+			|->main.css
+		->code
+			|->components
+				|->ProductList.tsx
+				|->ProductView.tsx
+				|->ShoppingCart.tsx
+				|->UserLogin.tsx
+			|->state 
+				|->cartSlice.ts
+				|->productsSlice.ts
+				|->store.ts
+				|->userSlice.ts
+			|->app.tsx
+		|->models
+			|->Products.ts

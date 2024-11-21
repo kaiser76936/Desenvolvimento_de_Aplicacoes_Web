@@ -38,7 +38,7 @@ module.exports = {
   devServer: {
     static: path.join(__dirname, 'dist'),
     compress: true,
-    port: 6000,
+    port: 9000,
     proxy: [
       {
         context: ['/api'],

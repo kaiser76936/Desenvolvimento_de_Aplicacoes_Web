@@ -4,6 +4,7 @@ import { Provider, useDispatch } from 'react-redux';
 import { store, AppDispatch } from './state/store';
 import { ProductList } from './components/ProductList';
 import { fetchProducts } from './state/productsSlice';
+import { Navbar } from './components/Navbar';
 import '../css/main.css';
 
 const App = () => {
@@ -14,11 +15,17 @@ const App = () => {
   }, [dispatch]);
 
   return (
-    <Provider store={store}>
+    <div>
+      <Navbar />
       <ProductList />
-    </Provider>
+    </div>
   );
 };
 
+// Wrap App with Provider here
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
-root.render(<App />);
+root.render(
+  <Provider store={store}>
+    <App />
+  </Provider>
+);

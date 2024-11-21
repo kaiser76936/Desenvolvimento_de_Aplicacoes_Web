@@ -8,10 +8,12 @@ export const ProductList: React.FC = () => {
   const products: Product[] = useSelector((state: RootState) => state.products.products);
 
   return (
-    <div>
+    <div className="product-list-container">
       <h1>Product List</h1>
       {products.map(product => (
-        <ProductView key={product.id} product={product} />
+        <div key={product.id} className="product-container">
+          <ProductView product={product} />
+        </div>
       ))}
     </div>
   );

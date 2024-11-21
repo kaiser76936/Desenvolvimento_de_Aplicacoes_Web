@@ -1,18 +1,90 @@
+/* Set default font and remove margins and padding */
 body {
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
 }
 
+/* Style headings */
 h1, h2 {
   color: #333;
 }
 
+/* Add spacing between form elements */
 form div {
   margin-bottom: 10px;
 }
 
+/* Style input fields */
 input {
   padding: 5px;
   width: 200px;
+}
+
+/*---------------------------------------------CSS for the NAVBAR-----------------------------------------*/
+nav {
+  background-color: #333;
+  overflow: hidden;
+}
+
+nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+}
+
+nav ul li {
+  float: left;
+}
+
+nav ul li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+nav ul li a:hover {
+  background-color: #111;
+}
+
+/*----------------------------------------CSS for Product List------------------------------------------------------*/
+/* Center the h1 title */
+.product-list-container h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Style the product list container */
+.product-list-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* Style the products container */
+.products-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  background-color: grey;
+  padding: 20px;
+}
+
+/* Style individual product views */
+.product-view {
+  width: calc(20% - 16px);
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+
+.product-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
 }

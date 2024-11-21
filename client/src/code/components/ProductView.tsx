@@ -15,7 +15,8 @@ export const ProductView: React.FC<ProductViewProps> = ({ product }) => {
   };
 
   return (
-    <div>
+    <div className="product-view">
+      <img src={product.image} alt={product.name} className="product-image" />
       <h2>{product.name}</h2>
       <p>Price: ${product.price}</p>
       <button onClick={handleAddToCart}>Add to Cart</button>

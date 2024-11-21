@@ -35,3 +35,6 @@ Configura a store do Redux, combinando os reducers dos slices de usuário, carri
 
 ### code/state/userSlice.ts
 Define o slice do Redux para o usuário. Gerencia o estado de autenticação do usuário, incluindo ações para login e logout.
+
+Ligações entre ficheiros:
+ProductList.tsx<->ProductView.tsx<->productSlice.ts<->Product.ts<->productController.ts<->product.ts

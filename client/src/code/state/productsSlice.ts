@@ -6,7 +6,7 @@ interface Product {
   id: number;
   name: string;
   price: number;
-  // Add other product properties if needed
+  image: string;
 }
 
 // Define the ProductsState interface
@@ -22,7 +22,11 @@ const initialState: ProductsState = {
 // Create an async thunk for fetching products
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const response = await axios.get<Product[]>('/api/products');
-  return response.data;
+  const basePath = '/images/'; 
+  return response.data.map(product => ({
+    ...product,
+    image: basePath + product.image,
+  }));
 });
 
 // Create a slice for products
