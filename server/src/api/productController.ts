@@ -29,28 +29,14 @@ router.get('/:id', (req, res) => {
   });
 });
 
-// Create new product
+// Add a new product
 router.post('/', async (req, res) => {
   try {
-    const newProduct = await addProduct(req.body);
-    res.status(201).json(newProduct);
+    const { name, price, image } = req.body; // Include image
+    const { id } = await addProduct({ name, price, image }); // Pass image to addProduct
+    res.status(201).json({ id, name, price, image });
   } catch (error) {
-    res.status(500).send('Error adding product');
-  }
-});
-
-// Remove a product
-router.delete('/:id', async (req, res) => {
-  const id = parseInt(req.params.id);
-  try {
-    const success = await removeProduct(id);
-    if (success) {
-      res.status(200).send('Product removed');
-    } else {
-      res.status(404).send('Product not found');
-    }
-  } catch (error) {
-    res.status(500).send('Error removing product');
+    res.status(500).send('Error creating product');
   }
 });
 

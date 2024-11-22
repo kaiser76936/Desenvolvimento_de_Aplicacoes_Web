@@ -51,8 +51,8 @@ client
 			|->main.css
 		->code
 			|->components
-				|->ProductList.tsx
-				|->ProductView.tsx
+				|->Navbar.tsx
+				|->Product.tsx
 				|->ShoppingCart.tsx
 				|->UserLogin.tsx
 			|->state 
@@ -61,5 +61,6 @@ client
 				|->store.ts
 				|->userSlice.ts
 			|->app.tsx
+			|->router.tsx
 		|->models
 			|->Products.ts

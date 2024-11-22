@@ -1,4 +1,3 @@
-// src/utils/database.ts
 import Datastore from 'nedb';
 import path from 'path';
 
@@ -6,13 +5,13 @@ import path from 'path';
 const dataDir = path.join(__dirname, '../../data');
 
 // Initialize NeDB for products
-export const productDB = new Datastore<{ id: number; name: string; price: number }>({
+export const productDB = new Datastore<{ id: number; name: string; price: number; image?: string }>({
   filename: path.join(dataDir, 'products.db'),
   autoload: true,
 });
 
 // Initialize NeDB for users
-export const userDB = new Datastore<{ id: number; name: string; email: string }>({
+export const userDB = new Datastore<{ id: number; name: string; email: string; password: string }>({
   filename: path.join(dataDir, 'users.db'),
   autoload: true,
 });
@@ -35,7 +34,7 @@ const getNextId = (db: Datastore<any>): Promise<number> => {
 };
 
 // Add a user
-export const addUser = async (user: { name: string; email: string }): Promise<{ id: number }> => {
+export const addUser = async (user: { name: string; email: string; password: string }): Promise<{ id: number }> => {
   const id = await getNextId(userDB);
   const newUser = { id, ...user };
   return new Promise((resolve, reject) => {
@@ -57,7 +56,7 @@ export const removeUser = (id: number): Promise<boolean> => {
 };
 
 // Add a product
-export const addProduct = async (product: { name: string; price: number }): Promise<{ id: number }> => {
+export const addProduct = async (product: { name: string; price: number; image?: string }): Promise<{ id: number }> => {
   const id = await getNextId(productDB);
   const newProduct = { id, ...product };
   return new Promise((resolve, reject) => {

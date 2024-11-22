@@ -13,7 +13,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.removeOrder = exports.addOrder = exports.removeProduct = exports.addProduct = exports.removeUser = exports.addUser = exports.orderDB = exports.userDB = exports.productDB = void 0;
-// src/utils/database.ts
 const nedb_1 = __importDefault(require("nedb"));
 const path_1 = __importDefault(require("path"));
 // Define the path to the data directory

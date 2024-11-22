@@ -38,8 +38,8 @@ router.get('/:id', (req, res) => {
 });
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, email } = req.body;
-        const { id } = yield (0, database_1.addUser)({ name, email });
+        const { name, email, password } = req.body;
+        const { id } = yield (0, database_1.addUser)({ name, email, password });
         res.status(201).json({ id, name, email });
     }
     catch (error) {

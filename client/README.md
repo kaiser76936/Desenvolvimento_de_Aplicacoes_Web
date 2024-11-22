@@ -13,10 +13,7 @@ Arquivo CSS principal que define os estilos básicos para a aplicação, incluin
 Ponto de entrada principal da aplicação React. Configura o provedor do Redux e renderiza o componente `ProductList` dentro do elemento raiz do HTML.
 
 ### code/components/ProductList.tsx
-Define a componente `ProductList`, que obtém e mostra uma lista de produtos a partir do estado do Redux. Utiliza a componente `ProductView` para renderizar cada produto individualmente.
-
-### code/components/ProductView.tsx
-Define a componente `ProductView`, responsável por exibir os detalhes de um único produto, incluindo nome e preço. Permite adicionar o produto ao carrinho através de uma ação do Redux.
+Define o componente `ProductList`, que exibe uma lista de produtos. Utiliza `useSelector` para obter a lista de produtos da store do Redux e renderiza um `ProductView` para cada produto.
 
 ### code/components/ShoppingCart.tsx
 Define a componente `ShoppingCart`, que exibe os itens atualmente no carrinho de compras. Permite remover produtos do carrinho utilizando ações do Redux.
@@ -37,4 +34,4 @@ Configura a store do Redux, combinando os reducers dos slices de usuário, carri
 Define o slice do Redux para o usuário. Gerencia o estado de autenticação do usuário, incluindo ações para login e logout.
 
 Ligações entre ficheiros:
-ProductList.tsx<->ProductView.tsx<->productSlice.ts<->Product.ts<->productController.ts<->product.ts
+Product.tsx<->productSlice.ts e cartSlice.ts<->Product.ts<->productController.ts<->product.ts

@@ -9,9 +9,9 @@ const userDB = new Datastore({
 
 // Define the users to be added
 const users = [
-  { id: 1, name: 'Kaiser', email: 'a76936@ualg.pt' },
-  { id: 2, name: 'Mongo', email: 'mongol@mongo.com' },
-  { id: 3, name: 'Estebe', email: 'baguetao@gmail.com' },
+  { id: 1, name: 'Kaiser', email: 'a76936@ualg.pt', password: 'password1' },
+  { id: 2, name: 'Mongo', email: 'mongol@mongo.com', password: 'password2' },
+  { id: 3, name: 'Estebe', email: 'baguetao@gmail.com', password: 'password3' },
 ];
 
 // Function to add users to the database

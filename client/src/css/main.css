@@ -1,3 +1,4 @@
+/*---------------------------------------------CSS for the NAVBAR-----------------------------------------*/
 /* Set default font and remove margins and padding */
 body {
   font-family: Arial, sans-serif;
@@ -15,13 +16,6 @@ form div {
   margin-bottom: 10px;
 }
 
-/* Style input fields */
-input {
-  padding: 5px;
-  width: 200px;
-}
-
-/*---------------------------------------------CSS for the NAVBAR-----------------------------------------*/
 nav {
   background-color: #333;
   overflow: hidden;
@@ -51,40 +45,125 @@ nav ul li a:hover {
 }
 
 /*----------------------------------------CSS for Product List------------------------------------------------------*/
-/* Center the h1 title */
-.product-list-container h1 {
+.product-list {
+  padding: 20px;
+}
+
+.product-list h1 {
   text-align: center;
   margin-bottom: 20px;
 }
 
-/* Style the product list container */
 .product-list-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.product-container {
+  flex: 1 1 calc(20% - 20px); /* 5 products per line with some spacing */
+  box-sizing: border-box;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  text-align: center;
+}
+
+.product-container img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 5px;
+}
+
+.product-container span {
+  display: block;
+  margin-top: 10px;
+  font-weight: bold;
+}
+/*---------------------------------------------CSS for Login------------------------------------------------------*/
+.login-template {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.login-template form {
   display: flex;
   flex-direction: column;
   align-items: center;
+  border: 1px solid #ccc;
+  padding: 110px; 
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  width: 400px; 
+  max-width: 100%; 
 }
 
-/* Style the products container */
-.products-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  background-color: grey;
-  padding: 20px;
-}
-
-/* Style individual product views */
-.product-view {
-  width: calc(20% - 16px);
-  box-sizing: border-box;
-  border: 1px solid #ddd;
-  padding: 10px;
-  border-radius: 5px;
+.login-template h1 {
   margin-bottom: 20px;
 }
 
-.product-image {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
+.login-template div {
+  margin-bottom: 15px;
+  width: 100%;
+  text-align: center;
+}
+
+.login-template label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.login-template input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+/*---------------------------------------------CSS for Register------------------------------------------------------*/
+.register-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full viewport height */
+}
+
+.register-template {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: 1px solid #ccc;
+  padding: 110px; 
+  border-radius: 10px;
+  background-color: #f9f9f9;
+  width: 400px; 
+  max-width: 100%; 
+}
+
+.register-template h1 {
+  margin-bottom: 20px;
+}
+
+.register-template div {
+  margin-bottom: 15px;
+  width: 100%;
+  text-align: center;
+}
+
+.register-template label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.register-template input {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+.register-template p {
+  margin-top: 15px;
+  text-align: center;
 }

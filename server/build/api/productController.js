@@ -37,30 +37,15 @@ router.get('/:id', (req, res) => {
         }
     });
 });
-// Create new product
+// Add a new product
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const newProduct = yield (0, database_1.addProduct)(req.body);
-        res.status(201).json(newProduct);
+        const { name, price, image } = req.body; // Include image
+        const { id } = yield (0, database_1.addProduct)({ name, price, image }); // Pass image to addProduct
+        res.status(201).json({ id, name, price, image });
     }
     catch (error) {
-        res.status(500).send('Error adding product');
-    }
-}));
-// Remove a product
-router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = parseInt(req.params.id);
-    try {
-        const success = yield (0, database_1.removeProduct)(id);
-        if (success) {
-            res.status(200).send('Product removed');
-        }
-        else {
-            res.status(404).send('Product not found');
-        }
-    }
-    catch (error) {
-        res.status(500).send('Error removing product');
+        res.status(500).send('Error creating product');
     }
 }));
 exports.productController = router;

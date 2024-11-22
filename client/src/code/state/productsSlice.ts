@@ -1,44 +1,59 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-// Define the Product interface
+/**
+ * Interface representing a product.
+ */
 interface Product {
   id: number;
   name: string;
   price: number;
-  image: string;
+  image?: string; 
 }
 
-// Define the ProductsState interface
+/**
+ * Interface representing the state of the products.
+ */
 interface ProductsState {
   products: Product[];
 }
 
-// Define the initial state using the ProductsState interface
+/**
+ * Initial state for the products slice.
+ * 
+ * @type {ProductsState}
+ */
 const initialState: ProductsState = {
   products: [],
 };
 
-// Create an async thunk for fetching products
+/**
+ * Async thunk for fetching products.
+ * 
+ * @async
+ * @function fetchProducts
+ * @returns {Promise<Product[]>} The fetched products.
+ */
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const response = await axios.get<Product[]>('/api/products');
-  const basePath = '/images/'; 
+  const basePath = '../../images/'; 
   return response.data.map(product => ({
     ...product,
-    image: basePath + product.image,
+    image: product.image ? basePath + product.image : undefined, // Handle image field
   }));
 });
 
-// Create a slice for products
+/**
+ * Slice for managing products state.
+ * 
+ * @module productsSlice
+ * @requires @reduxjs/toolkit
+ * @requires axios
+ */
 const productsSlice = createSlice({
   name: 'products',
   initialState,
-  reducers: {
-    setProducts: (state, action: PayloadAction<Product[]>) => {
-      state.products = action.payload;
-    },
-    // Add other product-related reducers if needed
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.fulfilled, (state, action: PayloadAction<Product[]>) => {
       state.products = action.payload;
@@ -46,6 +61,4 @@ const productsSlice = createSlice({
   },
 });
 
-// Export the setProducts action and the reducer
-export const { setProducts } = productsSlice.actions;
 export default productsSlice.reducer;

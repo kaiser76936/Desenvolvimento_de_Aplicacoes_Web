@@ -4,6 +4,11 @@ import { RootState } from '../state/store';
 import { removeFromCart } from '../state/cartSlice';
 import { Product } from '../../models/Product';
 
+/**
+ * ShoppingCart component that displays the items in the cart and allows removing them.
+ * 
+ * @component
+ */
 export const ShoppingCart: React.FC = () => {
   const cartItems: Product[] = useSelector((state: RootState) => state.cart.items);
   const dispatch = useDispatch();
