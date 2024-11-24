@@ -5,7 +5,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const server_1 = require("./server");
 const fs_1 = __importDefault(require("fs"));
-// Load server info
 const serverInfo = JSON.parse(fs_1.default.readFileSync('./server/serverInfo.json', 'utf-8'));
 const host = serverInfo.host || 'localhost';
 const port = process.env.PORT || serverInfo.port || 3000;

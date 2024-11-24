@@ -1,15 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
-
-/**
- * Interface representing a product.
- */
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  image?: string; 
-}
+import { Product } from '../../../../server/src/models/product'; 
 
 /**
  * Interface representing the state of the products.
@@ -36,7 +27,7 @@ const initialState: ProductsState = {
  */
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const response = await axios.get<Product[]>('/api/products');
-  const basePath = '../../images/'; 
+  const basePath = '../../../images/'; 
   return response.data.map(product => ({
     ...product,
     image: product.image ? basePath + product.image : undefined, // Handle image field

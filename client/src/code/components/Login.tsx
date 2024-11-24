@@ -1,21 +1,23 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { login } from '../state/userSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 /**
- * UserLogin component that provides a login form for users.
+ * Login component that provides a login form for users.
  * 
  * @component
  */
-export const UserLogin: React.FC = () => {
+export const Login: React.FC = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(login({ email, password }));
+    navigate('/'); // Redirect to home page
   };
 
   return (

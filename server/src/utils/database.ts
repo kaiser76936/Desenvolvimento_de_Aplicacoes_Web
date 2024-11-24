@@ -17,7 +17,7 @@ export const userDB = new Datastore<{ id: number; name: string; email: string; p
 });
 
 // Initialize NeDB for orders
-export const orderDB = new Datastore<{ id: number; product: string; quantity: number }>({
+export const orderDB = new Datastore<{ id: number; userId: number; products: { productId: number; quantity: number; price: number }[]; status: string; createdAt: Date; updatedAt?: Date; }>({
   filename: path.join(dataDir, 'orders.db'),
   autoload: true,
 });
@@ -78,9 +78,9 @@ export const removeProduct = (id: number): Promise<boolean> => {
 };
 
 // Add an order
-export const addOrder = async (order: { product: string; quantity: number }): Promise<{ id: number }> => {
+export const addOrder = async (order: { userId: number; products: { productId: number; quantity: number; price: number }[]; status: string; createdAt: Date; updatedAt?: Date }): Promise<{ id: number }> => {
   const id = await getNextId(orderDB);
-  const newOrder = { id, ...order };
+  const newOrder = { id, ...order, createdAt: new Date(), updatedAt: new Date() };
   return new Promise((resolve, reject) => {
     orderDB.insert(newOrder, (err, insertedOrder) => {
       if (err) return reject(err);

@@ -16,7 +16,7 @@ export const Register: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/users', { name, email, password }); // Include password
+      const response = await axios.post('/api/users', { name, email, password }); 
       if (response.status === 201) {
         navigate('/login');
       }

@@ -23,7 +23,7 @@ const initialState: UserState = {
  */
 interface LoginPayload {
   email: string;
-  password: string; // Include password field
+  password: string; 
 }
 
 /**

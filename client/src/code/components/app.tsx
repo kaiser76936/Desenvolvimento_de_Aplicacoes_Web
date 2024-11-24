@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom/client';
 import { Provider, useDispatch } from 'react-redux';
-import { store, AppDispatch } from './state/store';
-import { fetchProducts } from './state/productsSlice';
-import '../css/main.css';
-import AppRouter from './router';
+import { store, AppDispatch } from '../state/store';
+import { fetchProducts } from '../state/productsSlice';
+import '../../css/main.css';
+import AppRouter from '../router';
 
 /**
  * Main application component that sets up the Redux provider and renders the AppRouter component.

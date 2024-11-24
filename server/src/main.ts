@@ -1,7 +1,6 @@
 import { app } from './server';
 import fs from 'fs';
 
-// Load server info
 const serverInfo = JSON.parse(fs.readFileSync('./server/serverInfo.json', 'utf-8'));
 
 const host = serverInfo.host || 'localhost';

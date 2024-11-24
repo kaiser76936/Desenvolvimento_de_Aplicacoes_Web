@@ -1,6 +1,5 @@
 import express from 'express';
 import bodyParser from 'body-parser';
-import nodemailer from 'nodemailer';
 import { productController } from './api/productController';
 import { userController } from './api/userController';
 import { orderController } from './api/orderController';
@@ -21,5 +20,4 @@ app.get('/', (req, res) => {
   res.send('Welcome to the REST API Server');
 });
 
-// Export the app instance
 export { app };

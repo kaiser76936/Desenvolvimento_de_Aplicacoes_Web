@@ -1,51 +1,73 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { Product } from '../../models/Product';
+import { createSlice, PayloadAction, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
+import { Product } from '../../../../server/src/models/product'; 
 
 /**
  * Interface representing the state of the cart.
  */
 interface CartState {
-  items: Product[];
+  products: Product[];
 }
 
 /**
  * Initial state for the cart slice.
- * 
- * @type {CartState}
  */
 const initialState: CartState = {
-  items: [],
+  products: [],
 };
 
 /**
+ * Async thunk for fetching cart items.
+ *
+ * @async
+ * @function fetchCartItems
+ * @returns {Promise<Product[]>} The fetched cart items.
+ */
+export const fetchCartItems = createAsyncThunk('cart/fetchCartItems', async () => {
+  const response = await axios.get<Product[]>('/api/cart');
+  const basePath = '../../images/'; 
+  return response.data.map(product => ({
+    ...product,
+    image: product.image ? basePath + product.image : undefined,
+  }));
+});
+
+/**
  * Slice for managing cart state.
- * 
+ *
  * @module cartSlice
  * @requires @reduxjs/toolkit
- * @requires ../../models/Product
+ * @requires axios
  */
 const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
     /**
-     * Action to add a product to the cart.
-     * 
+     * Adds a product to the cart.
+     *
+     * @function addToCart
      * @param {CartState} state - The current state of the cart.
-     * @param {PayloadAction<Product>} action - The action payload containing the product to add.
+     * @param {PayloadAction<Product>} action - The action containing the product to add.
      */
     addToCart: (state, action: PayloadAction<Product>) => {
-      state.items.push(action.payload);
+      state.products.push(action.payload);
     },
     /**
-     * Action to remove a product from the cart.
-     * 
+     * Removes a product from the cart.
+     *
+     * @function removeFromCart
      * @param {CartState} state - The current state of the cart.
-     * @param {PayloadAction<number>} action - The action payload containing the id of the product to remove.
+     * @param {PayloadAction<number>} action - The action containing the ID of the product to remove.
      */
     removeFromCart: (state, action: PayloadAction<number>) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
+      state.products = state.products.filter(product => product.id !== action.payload);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchCartItems.fulfilled, (state, action: PayloadAction<Product[]>) => {
+      state.products = action.payload;
+    });
   },
 });
 

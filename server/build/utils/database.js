@@ -94,7 +94,7 @@ exports.removeProduct = removeProduct;
 // Add an order
 const addOrder = (order) => __awaiter(void 0, void 0, void 0, function* () {
     const id = yield getNextId(exports.orderDB);
-    const newOrder = Object.assign({ id }, order);
+    const newOrder = Object.assign(Object.assign({ id }, order), { createdAt: new Date(), updatedAt: new Date() });
     return new Promise((resolve, reject) => {
         exports.orderDB.insert(newOrder, (err, insertedOrder) => {
             if (err)

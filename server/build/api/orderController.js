@@ -37,24 +37,42 @@ router.get('/:id', (req, res) => {
         }
     });
 });
-// Create new order
+// Add a new order
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { product, quantity } = req.body;
-        const { id } = yield (0, database_1.addOrder)({ product, quantity });
-        res.status(201).json({ id, product, quantity });
+        const { userId, products, status } = req.body;
+        const createdAt = new Date(); // Capture the current date and time for order creation
+        const { id } = yield (0, database_1.addOrder)({ userId, products, status, createdAt });
+        res.status(201).json({ id, userId, products, status, createdAt });
     }
     catch (error) {
         res.status(500).send('Error creating order');
     }
 }));
+// Update an existing order (e.g., status change)
+router.put('/:id', (req, res) => {
+    const { status, products } = req.body;
+    const id = parseInt(req.params.id);
+    const updatedAt = new Date(); // Update the updatedAt field on order update
+    database_1.orderDB.update({ id }, { $set: { status, products, updatedAt } }, {}, (err, numReplaced) => {
+        if (err) {
+            return res.status(500).send('Error updating order');
+        }
+        if (numReplaced) {
+            res.json({ id, status, products, updatedAt });
+        }
+        else {
+            res.status(404).send('Order not found');
+        }
+    });
+});
 // Delete an order
 router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const id = parseInt(req.params.id);
     try {
-        const id = parseInt(req.params.id);
         const success = yield (0, database_1.removeOrder)(id);
         if (success) {
-            res.status(200).send('Order deleted');
+            res.status(204).send();
         }
         else {
             res.status(404).send('Order not found');

@@ -1,36 +1,41 @@
-import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { RootState } from '../state/store';
-import { removeFromCart } from '../state/cartSlice';
-import { Product } from '../../models/Product';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchCartItems, removeFromCart } from '../state/cartSlice';
+import { RootState, AppDispatch } from '../state/store';
+import type { Product } from '../../../../server/src/models/product';
 
 /**
  * ShoppingCart component that displays the items in the cart and allows removing them.
  * 
  * @component
  */
-export const ShoppingCart: React.FC = () => {
-  const cartItems: Product[] = useSelector((state: RootState) => state.cart.items);
-  const dispatch = useDispatch();
+const ShoppingCart: React.FC = () => {
+  const dispatch: AppDispatch = useDispatch();
+  const orders = useSelector((state: RootState) => state.cart.products);
+
+  useEffect(() => {
+    dispatch(fetchCartItems());
+  }, [dispatch]);
 
   const handleRemove = (id: number) => {
     dispatch(removeFromCart(id));
   };
 
   return (
-    <div>
+    <div className="shopping-cart-container">
       <h1>Shopping Cart</h1>
-      {cartItems.length === 0 ? (
-        <p>Your cart is empty.</p>
+      {orders.length === 0 ? (
+        <p className="empty-cart-message">Your cart is empty.</p>
       ) : (
-        cartItems.map((item: Product) => (
-          <div key={item.id}>
+        orders.map((item: Product) => (
+          <div key={item.id} className="shopping-cart-item">
             <p>{item.name}</p>
-            <p>Price: ${item.price}</p>
-            <button onClick={() => handleRemove(item.id)}>Remove</button>
+            <button className="remove-button" onClick={() => handleRemove(item.id)}>Remove</button>
           </div>
         ))
       )}
     </div>
   );
 };
+
+export default ShoppingCart;

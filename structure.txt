@@ -5,7 +5,7 @@ server
 	|->package-lock.json
 	|->tsconfig.json
 	|->build
-	|->data-
+	|->data
 		|->orders.db
 		|->products.db
 		|->users.db
@@ -25,7 +25,7 @@ server
 			|->product.ts
 			|->user.ts
 		|->tests
-			database.test.ts
+			|->database.test.ts
 			|->insertOrders.ts
 			|->insertProducts.ts
 			|->insertUsers.ts
@@ -42,9 +42,9 @@ client
 	|->tsconfig.json
 	|->webpack.congif.json
 	|->dist
-	|->node_modules
 	|->images
 		|->image1,image2,etc
+	|->node_modules
 	|->src
 	  	|->index.html
 	  	|->css
@@ -53,6 +53,7 @@ client
 			|->components
 				|->Navbar.tsx
 				|->Product.tsx
+				|->Register.tsx
 				|->ShoppingCart.tsx
 				|->UserLogin.tsx
 			|->state 
@@ -62,5 +63,3 @@ client
 				|->userSlice.ts
 			|->app.tsx
 			|->router.tsx
-		|->models
-			|->Products.ts
