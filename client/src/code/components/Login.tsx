@@ -17,7 +17,7 @@ export const Login: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     dispatch(login({ email, password }));
-    navigate('/'); // Redirect to home page
+    navigate('/'); 
   };
 
   return (

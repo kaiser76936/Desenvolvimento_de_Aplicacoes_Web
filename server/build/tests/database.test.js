@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const database_1 = require("../utils/database");
 describe('Database Operations', () => {
     it('should add a user', () => __awaiter(void 0, void 0, void 0, function* () {
-        const user = { name: 'Test User', email: 'test@example.com', password: 'password123' }; // Include password
+        const user = { name: 'Test User', email: 'test@example.com', password: 'password123' };
         const result = yield (0, database_1.addUser)(user);
         expect(result).toHaveProperty('id');
         expect(typeof result.id).toBe('number');

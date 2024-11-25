@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.removeOrder = exports.addOrder = exports.removeProduct = exports.addProduct = exports.removeUser = exports.addUser = exports.orderDB = exports.userDB = exports.productDB = void 0;
+exports.removeOrder = exports.addOrder = exports.updateOrder = exports.removeProduct = exports.addProduct = exports.removeUser = exports.addUser = exports.orderDB = exports.userDB = exports.productDB = void 0;
 const nedb_1 = __importDefault(require("nedb"));
 const path_1 = __importDefault(require("path"));
 // Define the path to the data directory
@@ -91,6 +91,17 @@ const removeProduct = (id) => {
     });
 };
 exports.removeProduct = removeProduct;
+// Update an order
+const updateOrder = (id, updates) => {
+    return new Promise((resolve, reject) => {
+        exports.orderDB.update({ id }, { $set: updates }, {}, (err, numReplaced) => {
+            if (err)
+                return reject(err);
+            resolve(numReplaced > 0);
+        });
+    });
+};
+exports.updateOrder = updateOrder;
 // Add an order
 const addOrder = (order) => __awaiter(void 0, void 0, void 0, function* () {
     const id = yield getNextId(exports.orderDB);

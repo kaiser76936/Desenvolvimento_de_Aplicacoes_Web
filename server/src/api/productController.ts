@@ -4,7 +4,12 @@ import { Product } from '../models/product';
 
 const router = Router();
 
-// Get all products
+/**
+ * Retrieve all products from the database.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.get('/', (req, res) => {
   productDB.find({}, (err: Error | null, products: Product[]) => {
     if (err) {
@@ -14,7 +19,12 @@ router.get('/', (req, res) => {
   });
 });
 
-// Get product by ID
+/**
+ * Retrieve a single product by its ID.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.get('/:id', (req, res) => {
   const id = parseInt(req.params.id);
   productDB.findOne({ id }, (err: Error | null, product: Product | null) => {
@@ -29,11 +39,16 @@ router.get('/:id', (req, res) => {
   });
 });
 
-// Add a new product
+/**
+ * Add a new product to the database.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.post('/', async (req, res) => {
   try {
-    const { name, price, image } = req.body; // Include image
-    const { id } = await addProduct({ name, price, image }); // Pass image to addProduct
+    const { name, price, image } = req.body; 
+    const { id } = await addProduct({ name, price, image }); 
     res.status(201).json({ id, name, price, image });
   } catch (error) {
     res.status(500).send('Error creating product');

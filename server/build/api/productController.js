@@ -40,8 +40,8 @@ router.get('/:id', (req, res) => {
 // Add a new product
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, price, image } = req.body; // Include image
-        const { id } = yield (0, database_1.addProduct)({ name, price, image }); // Pass image to addProduct
+        const { name, price, image } = req.body;
+        const { id } = yield (0, database_1.addProduct)({ name, price, image });
         res.status(201).json({ id, name, price, image });
     }
     catch (error) {

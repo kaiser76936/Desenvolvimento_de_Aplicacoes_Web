@@ -1,76 +1,113 @@
 import { Router } from 'express';
-import { orderDB, addOrder, removeOrder } from '../utils/database';
-import { Order } from '../models/order';
+import { orderDB, productDB, addOrder, removeOrder, updateOrder } from '../utils/database';
+import { Order, ProductOrder } from '../models/order';
+import { Product } from '../models/product';
 
 const router = Router();
 
-// Get all orders
-router.get('/', (req, res) => {
-    orderDB.find({}, (err: Error | null, orders: Order[]) => {
+/**
+ * Populates product details for each product order.
+ * @param {ProductOrder[]} products - Array of product orders.
+ * @returns {Promise<ProductOrder[]>} - Promise resolving to array of populated product orders.
+ */
+const populateProducts = async (products: ProductOrder[]): Promise<ProductOrder[]> => {
+    return Promise.all(products.map(async (productOrder) => {
+        return new Promise<ProductOrder>((resolve, reject) => {
+            productDB.findOne({ id: productOrder.id }, (err: Error | null, product: Product | null) => {
+                if (err || !product) {
+                    reject(err || new Error('Product not found'));
+                } else {
+                    resolve({
+                        ...productOrder,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                    });
+                }
+            });
+        });
+    }));
+};
+
+/**
+ * Retrieves all orders from the database.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
+router.get('/', async (req, res) => {
+    orderDB.find({}, async (err: Error | null, orders: Order[]) => {
         if (err) {
-            return res.status(500).send('Error fetching orders');
+            return res.status(500).json({ error: 'Failed to fetch orders' });
         }
-        res.json(orders);
+        try {
+            const populatedOrders = await Promise.all(orders.map(async (order) => ({
+                ...order,
+                products: await populateProducts(order.products),
+            })));
+            res.json(populatedOrders);
+        } catch (populateError) {
+            res.status(500).json({ error: 'Failed to populate products' });
+        }
     });
 });
 
-// Get order by ID
-router.get('/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    orderDB.findOne({ id }, (err: Error | null, order: Order | null) => {
-        if (err) {
-            return res.status(500).send('Error fetching order');
-        }
-        if (order) {
-            res.json(order);
-        } else {
-            res.status(404).send('Order not found');
-        }
-    });
-});
-
-// Add a new order
+/**
+ * Adds an order by ID.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
 router.post('/', async (req, res) => {
+    const { userId, products, status } = req.body;
     try {
-        const { userId, products, status } = req.body;
-        const createdAt = new Date(); // Capture the current date and time for order creation
-        const { id } = await addOrder({ userId, products, status, createdAt });
-        res.status(201).json({ id, userId, products, status, createdAt });
+        const newOrder = await addOrder({
+            userId,
+            products,
+            status,
+            createdAt: new Date(),
+        });
+        res.status(201).json(newOrder);
     } catch (error) {
-        res.status(500).send('Error creating order');
+        res.status(500).json({ error: 'Failed to add order' });
     }
 });
 
-// Update an existing order (e.g., status change)
-router.put('/:id', (req, res) => {
-    const { status, products } = req.body;
-    const id = parseInt(req.params.id);
-    const updatedAt = new Date(); // Update the updatedAt field on order update
-    orderDB.update({ id }, { $set: { status, products, updatedAt } }, {}, (err, numReplaced) => {
-        if (err) {
-            return res.status(500).send('Error updating order');
-        }
-        if (numReplaced) {
-            res.json({ id, status, products, updatedAt });
-        } else {
-            res.status(404).send('Order not found');
-        }
-    });
-});
-
-// Delete an order
-router.delete('/:id', async (req, res) => {
-    const id = parseInt(req.params.id);
+/**
+ * Updates an order by ID.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
+router.put('/:id', async (req, res) => {
+    const orderId = parseInt(req.params.id, 10);
+    const updates: Partial<Order> = req.body;
     try {
-        const success = await removeOrder(id);
+        const success = await updateOrder(orderId, updates);
         if (success) {
-            res.status(204).send();
+            res.json({ message: 'Order updated successfully' });
         } else {
-            res.status(404).send('Order not found');
+            res.status(404).json({ error: 'Order not found' });
         }
     } catch (error) {
-        res.status(500).send('Error deleting order');
+        res.status(500).json({ error: 'Failed to update order' });
     }
 });
 
-export const orderController = router;
+/**
+ * Removes an order by ID.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
+router.delete('/:id', async (req, res) => {
+    const orderId = parseInt(req.params.id, 10);
+    try {
+        const success = await removeOrder(orderId);
+        if (success) {
+            res.json({ message: 'Order removed successfully' });
+        } else {
+            res.status(404).json({ error: 'Order not found' });
+        }
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to remove order' });
+    }
+});
+
+export  const orderController = router;

@@ -51,15 +51,86 @@ client
 			|->main.css
 		->code
 			|->components
+				|->app.tsx
+				|->Login.tsx
 				|->Navbar.tsx
 				|->Product.tsx
 				|->Register.tsx
 				|->ShoppingCart.tsx
-				|->UserLogin.tsx
 			|->state 
 				|->cartSlice.ts
 				|->productsSlice.ts
 				|->store.ts
 				|->userSlice.ts
-			|->app.tsx
 			|->router.tsx
+
+Estrutura ideal
+project-root
+│
+├── .babelrc                 
+├── jest.config.js           
+├── package.json             
+├── package-lock.json        
+├── postcss.config.js        
+├── tsconfig.json            
+├── webpack.config.js        
+│
+├── build                    
+│
+├── dist                     
+│
+├── data                     
+│   ├── orders.db
+│   ├── products.db
+│   └── users.db
+│
+├── node_modules 
+|
+├── src                     
+│   ├── api                  
+│   │   ├── orderController.ts
+│   │   ├── productController.ts
+│   │   └── userController.ts
+│   │
+│   ├── client               
+│   │   ├── index.html
+│   │   ├── css
+│   │   │   └── main.css
+│   │   ├── images
+│   │   │   └── image1.jpg   
+│   │   └── code
+│   │       ├── components
+│   │       │   ├── app.tsx
+│   │       │   ├── Login.tsx
+│   │       │   ├── Navbar.tsx
+│   │       │   ├── Product.tsx
+│   │       │   ├── Register.tsx
+│   │       │   └── ShoppingCart.tsx
+│   │       ├── state
+│   │       │   ├── cartSlice.ts
+│   │       │   ├── productsSlice.ts
+│   │       │   ├── store.ts
+│   │       │   └── userSlice.ts
+│   │       └── router.tsx
+│   │
+│   ├── models              
+│   │   ├── order.ts
+│   │   ├── product.ts
+│   │   └── user.ts
+│   │
+│   ├── server               
+│   │   ├── main.ts
+│   │   ├── server.ts
+│   │   ├── serverInfo.ts
+│   │   └── serverInfo.json
+│   │
+│   └── utils                
+│       ├── database.ts
+│       ├── logger.ts
+│       └── validator.ts            
+│
+└── tests                    
+    ├── database.test.ts
+    ├── insertOrders.ts
+    ├── insertProducts.ts
+    └── insertUsers.ts

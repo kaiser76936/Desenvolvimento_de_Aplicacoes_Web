@@ -9,23 +9,40 @@ const orderDB = new Datastore({
 
 // Define the orders to be added
 const orders = [
-  { id: 1, name: 'Baguete', price: 4.99 },
-  { id: 2, name: 'BMW', price: 10000.00 },
-  { id: 3, name: 'order C', price: 5.49 },
+  {
+    id: 1,
+    userId: 101,
+    products: [
+      { id: 1, name: 'Baguette', price: 4.99, quantity: 2 },
+      { id: 2, name: 'BMW', price: 10000.00, quantity: 1 },
+    ],
+    status: 'Pending',
+    createdAt: new Date(),
+    updatedAt: new Date(),
+  },
+  {
+    id: 2,
+    userId: 102,
+    products: [
+      { id: 3, name: 'Order C', price: 5.49, quantity: 5, image: 'orderC.png' },
+    ],
+    status: 'Completed',
+    createdAt: new Date(),
+  },
 ];
 
 // Function to add orders to the database
-const addorders = () => {
+const addOrders = () => {
   orders.forEach(order => {
-    orderDB.insert(order, (err, neworder) => {
+    orderDB.insert(order, (err, newOrder) => {
       if (err) {
         console.error('Error adding order:', err);
       } else {
-        console.log(`order added with ID: ${neworder.id}`);
+        console.log(`Order added with ID: ${newOrder.id}`);
       }
     });
   });
 };
 
 // Run the function
-addorders();
+addOrders();

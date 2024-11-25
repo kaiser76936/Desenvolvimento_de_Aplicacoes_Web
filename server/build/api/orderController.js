@@ -1,4 +1,5 @@
 "use strict";
+// FILE: orderController.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -13,73 +14,85 @@ exports.orderController = void 0;
 const express_1 = require("express");
 const database_1 = require("../utils/database");
 const router = (0, express_1.Router)();
+// Helper function to populate product details
+const populateProducts = (products) => __awaiter(void 0, void 0, void 0, function* () {
+    return Promise.all(products.map((productOrder) => __awaiter(void 0, void 0, void 0, function* () {
+        return new Promise((resolve, reject) => {
+            database_1.productDB.findOne({ id: productOrder.id }, (err, product) => {
+                if (err || !product) {
+                    reject(err || new Error('Product not found'));
+                }
+                else {
+                    resolve(Object.assign(Object.assign({}, productOrder), { name: product.name, price: product.price, image: product.image }));
+                }
+            });
+        });
+    })));
+});
 // Get all orders
-router.get('/', (req, res) => {
-    database_1.orderDB.find({}, (err, orders) => {
+router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    database_1.orderDB.find({}, (err, orders) => __awaiter(void 0, void 0, void 0, function* () {
         if (err) {
-            return res.status(500).send('Error fetching orders');
+            return res.status(500).json({ error: 'Failed to fetch orders' });
         }
-        res.json(orders);
-    });
-});
-// Get order by ID
-router.get('/:id', (req, res) => {
-    const id = parseInt(req.params.id);
-    database_1.orderDB.findOne({ id }, (err, order) => {
-        if (err) {
-            return res.status(500).send('Error fetching order');
+        try {
+            const populatedOrders = yield Promise.all(orders.map((order) => __awaiter(void 0, void 0, void 0, function* () {
+                return (Object.assign(Object.assign({}, order), { products: yield populateProducts(order.products) }));
+            })));
+            res.json(populatedOrders);
         }
-        if (order) {
-            res.json(order);
+        catch (populateError) {
+            res.status(500).json({ error: 'Failed to populate products' });
         }
-        else {
-            res.status(404).send('Order not found');
-        }
-    });
-});
+    }));
+}));
 // Add a new order
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userId, products, status } = req.body;
     try {
-        const { userId, products, status } = req.body;
-        const createdAt = new Date(); // Capture the current date and time for order creation
-        const { id } = yield (0, database_1.addOrder)({ userId, products, status, createdAt });
-        res.status(201).json({ id, userId, products, status, createdAt });
+        const newOrder = yield (0, database_1.addOrder)({
+            userId,
+            products,
+            status,
+            createdAt: new Date(),
+        });
+        res.status(201).json(newOrder);
     }
     catch (error) {
-        res.status(500).send('Error creating order');
+        res.status(500).json({ error: 'Failed to add order' });
     }
 }));
-// Update an existing order (e.g., status change)
-router.put('/:id', (req, res) => {
-    const { status, products } = req.body;
-    const id = parseInt(req.params.id);
-    const updatedAt = new Date(); // Update the updatedAt field on order update
-    database_1.orderDB.update({ id }, { $set: { status, products, updatedAt } }, {}, (err, numReplaced) => {
-        if (err) {
-            return res.status(500).send('Error updating order');
-        }
-        if (numReplaced) {
-            res.json({ id, status, products, updatedAt });
-        }
-        else {
-            res.status(404).send('Order not found');
-        }
-    });
-});
-// Delete an order
-router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const id = parseInt(req.params.id);
+// Update an existing order
+router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const orderId = parseInt(req.params.id, 10);
+    const updates = req.body;
     try {
-        const success = yield (0, database_1.removeOrder)(id);
+        const success = yield (0, database_1.updateOrder)(orderId, updates);
         if (success) {
-            res.status(204).send();
+            res.json({ message: 'Order updated successfully' });
         }
         else {
-            res.status(404).send('Order not found');
+            res.status(404).json({ error: 'Order not found' });
         }
     }
     catch (error) {
-        res.status(500).send('Error deleting order');
+        res.status(500).json({ error: 'Failed to update order' });
+    }
+}));
+// Remove an order
+router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const orderId = parseInt(req.params.id, 10);
+    try {
+        const success = yield (0, database_1.removeOrder)(orderId);
+        if (success) {
+            res.json({ message: 'Order removed successfully' });
+        }
+        else {
+            res.status(404).json({ error: 'Order not found' });
+        }
+    }
+    catch (error) {
+        res.status(500).json({ error: 'Failed to remove order' });
     }
 }));
 exports.orderController = router;

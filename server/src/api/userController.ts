@@ -4,7 +4,12 @@ import { User } from '../models/user';
 
 const router = Router();
 
-// Get all users
+/**
+ * Get all users.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.get('/', (req, res) => {
   userDB.find({}, (err: Error | null, users: User[]) => {
     if (err) {
@@ -14,7 +19,12 @@ router.get('/', (req, res) => {
   });
 });
 
-// Get user by ID
+/**
+ * Get user by ID.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.get('/:id', (req, res) => {
   userDB.findOne({ id: parseInt(req.params.id) }, (err: Error | null, user: User) => {
     if (err) {
@@ -28,6 +38,12 @@ router.get('/:id', (req, res) => {
   });
 });
 
+/**
+ * Create a new user.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.post('/', async (req, res) => {
   try {
       const { name, email, password } = req.body;

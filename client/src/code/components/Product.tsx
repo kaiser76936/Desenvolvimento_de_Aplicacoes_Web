@@ -1,4 +1,3 @@
-// Product.tsx
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchProducts } from '../state/productsSlice';
@@ -35,7 +34,7 @@ export const Product: React.FC = () => {
         {products.map(product => (
           <div key={product.id} className="product-container">
             <span>{product.name} - ${product.price}</span>
-            {product.image && <img src={product.image} alt={product.name} />}
+            {product.image && <img src={product.image}/>}
             <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
           </div>
         ))}

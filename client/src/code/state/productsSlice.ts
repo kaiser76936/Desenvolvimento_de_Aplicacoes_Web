@@ -30,7 +30,7 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
   const basePath = '../../../images/'; 
   return response.data.map(product => ({
     ...product,
-    image: product.image ? basePath + product.image : undefined, // Handle image field
+    image: product.image ? basePath + product.image : undefined, 
   }));
 });
 

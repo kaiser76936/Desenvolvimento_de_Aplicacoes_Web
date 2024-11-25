@@ -2,7 +2,7 @@ import { addUser, removeUser, addProduct, removeProduct } from '../utils/databas
 
 describe('Database Operations', () => {
   it('should add a user', async () => {
-    const user = { name: 'Test User', email: 'test@example.com', password: 'password123' }; // Include password
+    const user = { name: 'Test User', email: 'test@example.com', password: 'password123' }; 
     const result = await addUser(user);
     expect(result).toHaveProperty('id');
     expect(typeof result.id).toBe('number');
