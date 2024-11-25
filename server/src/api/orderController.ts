@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { orderDB, productDB, addOrder, removeOrder, updateOrder } from '../utils/database';
+import { orderDB, addOrder, removeOrder, updateOrder, productDB } from '../utils/database';
 import { Order, ProductOrder } from '../models/order';
 import { Product } from '../models/product';
 

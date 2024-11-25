@@ -1,5 +1,4 @@
 "use strict";
-// FILE: orderController.ts
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -14,7 +13,11 @@ exports.orderController = void 0;
 const express_1 = require("express");
 const database_1 = require("../utils/database");
 const router = (0, express_1.Router)();
-// Helper function to populate product details
+/**
+ * Populates product details for each product order.
+ * @param {ProductOrder[]} products - Array of product orders.
+ * @returns {Promise<ProductOrder[]>} - Promise resolving to array of populated product orders.
+ */
 const populateProducts = (products) => __awaiter(void 0, void 0, void 0, function* () {
     return Promise.all(products.map((productOrder) => __awaiter(void 0, void 0, void 0, function* () {
         return new Promise((resolve, reject) => {
@@ -29,7 +32,11 @@ const populateProducts = (products) => __awaiter(void 0, void 0, void 0, functio
         });
     })));
 });
-// Get all orders
+/**
+ * Retrieves all orders from the database.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     database_1.orderDB.find({}, (err, orders) => __awaiter(void 0, void 0, void 0, function* () {
         if (err) {
@@ -46,7 +53,11 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         }
     }));
 }));
-// Add a new order
+/**
+ * Adds an order by ID.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { userId, products, status } = req.body;
     try {
@@ -62,7 +73,11 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({ error: 'Failed to add order' });
     }
 }));
-// Update an existing order
+/**
+ * Updates an order by ID.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
 router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const orderId = parseInt(req.params.id, 10);
     const updates = req.body;
@@ -79,7 +94,11 @@ router.put('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () 
         res.status(500).json({ error: 'Failed to update order' });
     }
 }));
-// Remove an order
+/**
+ * Removes an order by ID.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
 router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const orderId = parseInt(req.params.id, 10);
     try {

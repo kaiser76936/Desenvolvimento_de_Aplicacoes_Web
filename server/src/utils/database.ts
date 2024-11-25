@@ -137,15 +137,15 @@ export const updateOrder = (id: number, updates: Partial<{ status: string; produ
  * Adds a new order to the database.
  *
  * @param order - The order details to add.
- * @returns A promise that resolves to an object containing the new order's ID.
+ * @returns {Promise<{ id: number }>} A promise that resolves to an object containing the new order's ID.
  */
 export const addOrder = async (order: { userId: number; products: { id: number; name: string; price: number; image?: string; quantity: number }[]; status: string; createdAt: Date; updatedAt?: Date; }): Promise<{ id: number }> => {
   const id = await getNextId(orderDB);
-  const newOrder = { id, ...order, createdAt: new Date(), updatedAt: new Date() };
+  const newOrder = { id, ...order };
   return new Promise((resolve, reject) => {
-    orderDB.insert(newOrder, (err, insertedOrder) => {
+    orderDB.insert(newOrder, (err: Error | null, doc: any) => {
       if (err) return reject(err);
-      resolve({ id: insertedOrder.id });
+      resolve({ id: doc.id });
     });
   });
 };

@@ -83,7 +83,7 @@ nav ul li button:hover {
 }
 
 .product-container {
-  flex: 1 1 calc(20% - 20px); /* 5 products per line with some spacing */
+  flex: 1 1 calc(20% - 20px); 
   box-sizing: border-box;
   margin: 10px;
   padding: 10px;
@@ -189,8 +189,7 @@ nav ul li button:hover {
   margin-top: 15px;
   text-align: center;
 }
-/* ShoppingCart.css */
-
+/*---------------------------------------------ShoppingCart.css--------------------------------------------------------*/
 .shopping-cart-container {
   padding: 20px;
   background-color: #f9f9f9;
@@ -202,7 +201,6 @@ nav ul li button:hover {
   text-align: center;
   margin-bottom: 20px;
   color: #333;
-  height: 68vh;
 }
 
 .shopping-cart-item {

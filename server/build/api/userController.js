@@ -13,7 +13,12 @@ exports.userController = void 0;
 const express_1 = require("express");
 const database_1 = require("../utils/database");
 const router = (0, express_1.Router)();
-// Get all users
+/**
+ * Get all users.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.get('/', (req, res) => {
     database_1.userDB.find({}, (err, users) => {
         if (err) {
@@ -22,7 +27,12 @@ router.get('/', (req, res) => {
         res.json(users);
     });
 });
-// Get user by ID
+/**
+ * Get user by ID.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.get('/:id', (req, res) => {
     database_1.userDB.findOne({ id: parseInt(req.params.id) }, (err, user) => {
         if (err) {
@@ -36,6 +46,12 @@ router.get('/:id', (req, res) => {
         }
     });
 });
+/**
+ * Create a new user.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, email, password } = req.body;

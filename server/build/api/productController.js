@@ -13,7 +13,12 @@ exports.productController = void 0;
 const express_1 = require("express");
 const database_1 = require("../utils/database");
 const router = (0, express_1.Router)();
-// Get all products
+/**
+ * Retrieve all products from the database.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.get('/', (req, res) => {
     database_1.productDB.find({}, (err, products) => {
         if (err) {
@@ -22,7 +27,12 @@ router.get('/', (req, res) => {
         res.json(products);
     });
 });
-// Get product by ID
+/**
+ * Retrieve a single product by its ID.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.get('/:id', (req, res) => {
     const id = parseInt(req.params.id);
     database_1.productDB.findOne({ id }, (err, product) => {
@@ -37,7 +47,12 @@ router.get('/:id', (req, res) => {
         }
     });
 });
-// Add a new product
+/**
+ * Add a new product to the database.
+ *
+ * @param req - Express request object
+ * @param res - Express response object
+ */
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const { name, price, image } = req.body;
