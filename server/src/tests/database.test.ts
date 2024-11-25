@@ -14,8 +14,13 @@ describe('Database Operations', () => {
     expect(result).toBe(true);
   });
 
+  // Updated test case
   it('should add a product', async () => {
-    const product = { name: 'Test Product', price: 100 };
+    const product = {
+      name: 'Test Product',
+      price: 100,
+      description: 'Test description', // Added this line
+    };
     const result = await addProduct(product);
     expect(result).toHaveProperty('id');
     expect(typeof result.id).toBe('number');

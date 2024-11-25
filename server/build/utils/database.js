@@ -20,7 +20,7 @@ const dataDir = path_1.default.join(__dirname, '../../data');
  * Datastore for products, with each product having an ID, name, price, and optional image.
  * Products are stored in a NeDB database.
  *
- * @type {Datastore<{ id: number; name: string; price: number; image?: string }>}
+ * @type {Datastore<{ id: number; name: string; price: number; description: string; image?: string }>}
  */
 exports.productDB = new nedb_1.default({
     filename: path_1.default.join(dataDir, 'products.db'),
@@ -108,9 +108,12 @@ const addProduct = (product) => __awaiter(void 0, void 0, void 0, function* () {
     const newProduct = Object.assign({ id }, product);
     return new Promise((resolve, reject) => {
         exports.productDB.insert(newProduct, (err, insertedProduct) => {
-            if (err)
-                return reject(err);
-            resolve({ id: insertedProduct.id });
+            if (err) {
+                reject(err);
+            }
+            else {
+                resolve({ id: insertedProduct.id });
+            }
         });
     });
 });
@@ -152,16 +155,16 @@ exports.updateOrder = updateOrder;
  * Adds a new order to the database.
  *
  * @param order - The order details to add.
- * @returns A promise that resolves to an object containing the new order's ID.
+ * @returns {Promise<{ id: number }>} A promise that resolves to an object containing the new order's ID.
  */
 const addOrder = (order) => __awaiter(void 0, void 0, void 0, function* () {
     const id = yield getNextId(exports.orderDB);
-    const newOrder = Object.assign(Object.assign({ id }, order), { createdAt: new Date(), updatedAt: new Date() });
+    const newOrder = Object.assign({ id }, order);
     return new Promise((resolve, reject) => {
-        exports.orderDB.insert(newOrder, (err, insertedOrder) => {
+        exports.orderDB.insert(newOrder, (err, doc) => {
             if (err)
                 return reject(err);
-            resolve({ id: insertedOrder.id });
+            resolve({ id: doc.id });
         });
     });
 });

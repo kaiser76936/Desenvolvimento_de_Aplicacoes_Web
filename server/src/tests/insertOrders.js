@@ -13,8 +13,22 @@ const orders = [
     id: 1,
     userId: 101,
     products: [
-      { id: 1, name: 'Baguette', price: 4.99, quantity: 2 },
-      { id: 2, name: 'BMW', price: 10000.00, quantity: 1 },
+      {
+        id: 1,
+        name: 'Product A',
+        price: 10.99,
+        quantity: 2,
+        description: 'Description of Product A', // Added this line
+        image: 'image1.jpg',
+      },
+      {
+        id: 2,
+        name: 'Product B',
+        price: 20.99,
+        quantity: 1,
+        description: 'Description of Product B', // Added this line
+        image: 'image2.jpg',
+      },
     ],
     status: 'Pending',
     createdAt: new Date(),
@@ -24,7 +38,14 @@ const orders = [
     id: 2,
     userId: 102,
     products: [
-      { id: 3, name: 'Order C', price: 5.49, quantity: 5, image: 'orderC.png' },
+      {
+        id: 3,
+        name: 'Product C',
+        price: 5.49,
+        quantity: 5,
+        description: 'Description of Product C', // Added this line
+        image: 'image3.jpg',
+      },
     ],
     status: 'Completed',
     createdAt: new Date(),

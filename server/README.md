@@ -13,49 +13,49 @@ Gerencia as operações CRUD para produtos. Fornece endpoints para recuperar tod
 Gerencia as operações CRUD para users. Fornece endpoints para recuperar todos os users e recuperar um user específico via ID. Utiliza o `userDB` da base de dados para interagir com os dados de users.
 
 ### src/models/order.ts
-Define a interface `Order` que representa um pedido na app. Esta interface assegura que todos os objetos do pedido mantenham uma estrutura uniforme, facilitando a manipulação e o gerenciamento dos dados de pedidos.
+Define a interface `Order` que representa um pedido na aplicação. Assegura estrutura uniforme para objetos de pedido, facilitando a manipulação e gerenciamento dos dados.
 
 ### src/models/product.ts
-Define a interface `Product` que representa um produto disponível na app. Esta interface assegura que todos os objetos de produto mantenham uma estrutura uniforme, promovendo a segurança de tipos e facilitando a manipulação de dados relacionados a produtos.
+Define a interface `Product` que representa um produto disponível na aplicação. Assegura estrutura uniforme para objetos de produto, promovendo segurança de tipos.
 
 ### src/models/user.ts
-Define a interface `User` que representa um user da app. Esta interface garante que todos os users sigam uma estrutura consistente, permitindo a segurança de tipos e a integridade dos dados ao gerenciar informações de users.
-
-### src/utils/database.ts
-Define e inicializa as instâncias do NeDB para produtos, users e pedidos. Esta configuração garante o armazenamento e a gestão eficiente dos dados das principais entidades da app. Inclui funções para adicionar e remover users, produtos e pedidos, bem como para obter IDs únicos.
-
-### src/utils/logger.ts
-Contém funções úteis para registro de logs e erros em toda a app. Facilita o acompanhamento de eventos e a depuração, garantindo que todas as mensagens de log sigam um formato consistente.
-
-### src/utils/validator.ts
-Fornece funções de validação para garantir a integridade e o formato correto dos dados utilizados na aplicação. Inclui funções como `isEmail` para validar formatos de email e `isPositiveNumber` para garantir que valores numéricos sejam positivos.
+Define a interface `User` que representa um user da aplicação. Garante estrutura consistente para objetos de user, permitindo segurança de tipos e integridade dos dados.
 
 ### src/tests/database.test.ts
-Contém unit tests para as operações de banco de dados, incluindo a adição e remoção de users e produtos. Garante que as funções do banco de dados funcionem conforme o esperado e manipulem os dados corretamente.
+Contém unit tests para operações de banco de dados, garantindo que as funções manipulam dados corretamente.
 
 ### src/tests/insertOrders.js
-Ficheiro de teste para inserir dados na db orders.db
+Script de teste para inserir dados na base de dados `orders.db`.
 
 ### src/tests/insertProducts.js
-Ficheiro de teste para inserir dados na db products.db
+Script de teste para inserir dados na base de dados `products.db`.
 
 ### src/tests/insertUsers.js
-Ficheiro de teste para inserir dados na db users.db
+Script de teste para inserir dados na base de dados `users.db`.
+
+### src/utils/database.ts
+Define e inicializa instâncias do NeDB para produtos, users e pedidos. Inclui funções para adicionar, remover e obter IDs únicos.
+
+### src/utils/logger.ts
+Contém funções para registro de logs e erros na aplicação, facilitando depuração e acompanhamento de eventos.
+
+### src/utils/validator.ts
+Fornece funções de validação para garantir integridade e formato correto dos dados, como `isEmail` e `isPositiveNumber`.
 
 ### src/main.ts
-Ponto de entrada da aplicação. Carrega as configurações do servidor a partir de um arquivo JSON e inicia o servidor ouvindo no host e porta especificados.
+Ponto de entrada da aplicação. Carrega configurações do servidor e inicia o servidor ouvindo no host e porta especificados.
 
 ### src/server.ts
-Configura o servidor Express, incluindo middleware para análise de requisições JSON e definição das rotas da API para produtos, users e pedidos. Exporta a instância do aplicativo Express.
+Configura o servidor Express, incluindo middleware para análise de requisições JSON e definição das rotas da API.
 
 ### src/serverInfo.ts
-Fornece metadados do servidor, incluindo o nome, versão e descrição do servidor REST API. Utilizado nas configurações do servidor e na documentação.
+Fornece metadados do servidor, como nome, versão e descrição da API. Utilizado nas configurações e documentação do servidor.
 
 ### data/products.db
-Base de dados NeDB para armazenar dados dos produtos. Gerido pelo NeDB.
+Base de dados NeDB para armazenar dados dos produtos.
 
 ### data/users.db
-Base de dados NeDB para armazenar dados dos users. Gerido pelo NeDB.
+Base de dados NeDB para armazenar dados dos users.
 
 ### data/orders.db
-Base de dados NeDB para armazenar dados dos pedidos. Gerido pelo NeDB.
+Base de dados NeDB para armazenar dados dos pedidos.

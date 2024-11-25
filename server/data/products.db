@@ -1,3 +1,3 @@
-{"id":4,"name":"BMW","price":100,"image":"image1.jpg","_id":"CJnUwt3JX1RAmvEF"}
-{"id":2,"name":"Baguete","price":4.99,"image":"image2.jpg","_id":"GJGXNVUQpcAtJagO"}
-{"id":3,"name":"Supreme Brick","price":549,"image":"image.jpg","_id":"JlozpYQDavDHBuxd"}
+{"id":1,"name":"BMW","price":100,"description":"...","image":"image1.jpg","_id":"CJnUwt3JX1RAmvEF"}
+{"id":2,"name":"Baguete","price":4.99,"description":"...","image":"image2.jpg","_id":"GJGXNVUQpcAtJagO"}
+{"id":3,"name":"Supreme Brick","price":549,"description":"...","image":"image.jpg","_id":"JlozpYQDavDHBuxd"}

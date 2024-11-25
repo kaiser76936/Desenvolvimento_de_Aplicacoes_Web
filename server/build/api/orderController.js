@@ -26,7 +26,7 @@ const populateProducts = (products) => __awaiter(void 0, void 0, void 0, functio
                     reject(err || new Error('Product not found'));
                 }
                 else {
-                    resolve(Object.assign(Object.assign({}, productOrder), { name: product.name, price: product.price, image: product.image }));
+                    resolve(Object.assign(Object.assign({}, productOrder), { name: product.name, price: product.price, image: product.image, description: product.description }));
                 }
             });
         });

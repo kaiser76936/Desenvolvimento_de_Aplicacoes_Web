@@ -7,9 +7,9 @@ const dataDir = path.join(__dirname, '../../data');
  * Datastore for products, with each product having an ID, name, price, and optional image.
  * Products are stored in a NeDB database.
  *
- * @type {Datastore<{ id: number; name: string; price: number; image?: string }>}
+ * @type {Datastore<{ id: number; name: string; price: number; description: string; image?: string }>}
  */
-export const productDB = new Datastore<{ id: number; name: string; price: number; image?: string }>({
+export const productDB = new Datastore<{ id: number; name: string; price: number; description: string; image?: string }>({
   filename: path.join(dataDir, 'products.db'),
   autoload: true,
 });
@@ -91,14 +91,17 @@ export const removeUser = (id: number): Promise<boolean> => {
  * @param {Object} product - An object containing the name, price, and optional image of the product.
  * @returns {Promise<{id: number}>} A promise that resolves to an object containing the ID of the added product.
  */
-export const addProduct = async (product: { name: string; price: number; image?: string }): Promise<{ id: number }> => {
+export const addProduct = async (product: { name: string; price: number; description: string;  image?: string; }): Promise<{ id: number }> => {
   const id = await getNextId(productDB);
   const newProduct = { id, ...product };
   return new Promise((resolve, reject) => {
-    productDB.insert(newProduct, (err, insertedProduct) => {
-      if (err) return reject(err);
-      resolve({ id: insertedProduct.id });
-    });
+      productDB.insert(newProduct, (err, insertedProduct) => {
+          if (err) {
+              reject(err);
+          } else {
+              resolve({ id: insertedProduct.id });
+          }
+      });
   });
 };
 

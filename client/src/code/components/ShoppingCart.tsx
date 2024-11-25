@@ -13,7 +13,7 @@ import type { Product } from '../../../../server/src/models/product';
 const ShoppingCart: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { products, status, error } = useSelector((state: RootState) => state.cart);
-  const userId = 1; // Replace with actual user ID
+  const userId = 1; 
 
   useEffect(() => {
     dispatch(fetchCartItems());

@@ -22,8 +22,13 @@ describe('Database Operations', () => {
         const result = yield (0, database_1.removeUser)(userId);
         expect(result).toBe(true);
     }));
+    // Updated test case
     it('should add a product', () => __awaiter(void 0, void 0, void 0, function* () {
-        const product = { name: 'Test Product', price: 100 };
+        const product = {
+            name: 'Test Product',
+            price: 100,
+            description: 'Test description', // Added this line
+        };
         const result = yield (0, database_1.addProduct)(product);
         expect(result).toHaveProperty('id');
         expect(typeof result.id).toBe('number');

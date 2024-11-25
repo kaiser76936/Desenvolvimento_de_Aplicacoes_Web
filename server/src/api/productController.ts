@@ -47,11 +47,11 @@ router.get('/:id', (req, res) => {
  */
 router.post('/', async (req, res) => {
   try {
-    const { name, price, image } = req.body; 
-    const { id } = await addProduct({ name, price, image }); 
-    res.status(201).json({ id, name, price, image });
+      const { name, price, description, image } = req.body; // Added description
+      const { id } = await addProduct({ name, price, description, image }); // Pass description
+      res.status(201).json({ id, name, price, description, image }); // Include description in response
   } catch (error) {
-    res.status(500).send('Error creating product');
+      res.status(500).send('Error creating product');
   }
 });
 

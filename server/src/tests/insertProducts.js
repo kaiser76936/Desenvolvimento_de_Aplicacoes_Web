@@ -9,9 +9,27 @@ const productDB = new Datastore({
 
 // Define the products to be added
 const products = [
-  { id: 1, name: 'Product A', price: 10.99, image: 'image1.jpg' },
-  { id: 2, name: 'Product B', price: 20.99, image: 'image2.jpg' },
-  { id: 3, name: 'Product C', price: 5.49, image: 'image3.jpg' },
+  {
+    id: 1,
+    name: 'Product A',
+    price: 10.99,
+    description: 'Description of Product A', // Added this line
+    image: 'image1.jpg',
+  },
+  {
+    id: 2,
+    name: 'Product B',
+    price: 20.99,
+    description: 'Description of Product B', // Added this line
+    image: 'image2.jpg',
+  },
+  {
+    id: 3,
+    name: 'Product C',
+    price: 5.49,
+    description: 'Description of Product C', // Added this line
+    image: 'image3.jpg',
+  },
 ];
 
 // Function to add products to the database

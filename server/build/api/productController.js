@@ -55,9 +55,9 @@ router.get('/:id', (req, res) => {
  */
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { name, price, image } = req.body;
-        const { id } = yield (0, database_1.addProduct)({ name, price, image });
-        res.status(201).json({ id, name, price, image });
+        const { name, price, description, image } = req.body; // Added description
+        const { id } = yield (0, database_1.addProduct)({ name, price, description, image }); // Pass description
+        res.status(201).json({ id, name, price, description, image }); // Include description in response
     }
     catch (error) {
         res.status(500).send('Error creating product');

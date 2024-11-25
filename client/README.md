@@ -1,47 +1,47 @@
+# Project Overview
+Este projeto é uma aplicação React que consome a REST API do servidor para gerenciar produtos, usuários e pedidos. Utiliza Redux para gerenciamento de estado, React Router para navegação e TypeScript para segurança de tipos.
+
 ## Estrutura de Arquivos
 
 ### src/index.html
-Arquivo HTML principal que carrega a aplicação React. Inclui a referência ao arquivo CSS e ao bundle JavaScript gerado pelo build.
-
-### models/Product.ts
-Define a interface `Product` que representa um produto na aplicação. Esta interface assegura que todos os objetos de produto mantenham uma estrutura uniforme, promovendo a segurança de tipos e facilitando a manipulação de dados relacionados a produtos.
+Arquivo HTML principal que carrega a aplicação React. Inclui referência ao CSS e ao bundle JavaScript gerado pelo build.
 
 ### css/main.css
-Arquivo CSS principal que define os estilos básicos para a aplicação, incluindo estilos para o corpo, cabeçalhos, formulários e inputs.
+Arquivo CSS principal que define estilos básicos como corpo, cabeçalhos, formulários e inputs.
 
-### code//components/app.tsx
-Ponto de entrada principal da aplicação React. Configura o provedor do Redux e renderiza o componente `AppRouter` dentro do elemento raiz do HTML.
+### code/components/app.tsx
+Ponto de entrada da aplicação React. Configura o provedor do Redux e renderiza o componente `AppRouter` no elemento raiz do HTML.
 
-### code/components/Product.tsx
-Define o componente `Product`, que mostra a lista de produtos. Utiliza `useSelector` para obter a lista de produtos da store do Redux e renderiza um `ProductView` para cada produto.
-
-### code/components/ShoppingCart.tsx
-Define a componente `ShoppingCart`, que mostra os itens atualmente no carrinho de compras. Permite remover produtos do carrinho utilizando ações do Redux.
-
-### code/components/UserLogin.tsx
-Define a componente `UserLogin`, que fornece um formulário de login para os users. Gerencia o estado local para email e senha e despacha ações do Redux para autenticar o user.
+### code/components/Login.tsx
+Componente `UserLogin` que fornece formulário de login para users. Gerencia estado local para email e senha e despacha ações Redux para autenticação.
 
 ### code/components/Navbar.tsx
-Define a componente `Navbar`, que fornece links de navegação para diferentes páginas da aplicação.
+Componente `Navbar` que fornece links de navegação para diferentes páginas da aplicação.
+
+### code/components/Product.tsx
+Componente `Product` que exibe a lista de produtos. Utiliza `useSelector` para obter produtos da store Redux e renderiza um `ProductView` para cada produto.
 
 ### code/components/Register.tsx
-Define a componente `Register`, que fornece um formulário de registro para novos users.
+Componente `Register` que fornece formulário de registro para novos users.
+
+### code/components/ShoppingCart.tsx
+Componente `ShoppingCart` que mostra itens no carrinho de compras. Permite remover produtos utilizando ações do Redux.
 
 ### code/state/cartSlice.ts
-Define o slice do Redux para o carrinho de compras. Gerencia o estado dos itens no carrinho, incluindo ações para adicionar e remover produtos.
+Slice do Redux para o carrinho de compras. Gerencia itens no carrinho com ações para adicionar e remover produtos.
 
 ### code/state/productsSlice.ts
-Define o slice do Redux para os produtos. Gerencia o estado da lista de produtos disponíveis, incluindo ações para definir a lista de produtos.
+Slice do Redux para produtos. Gerencia a lista de produtos disponíveis com ações para definir a lista.
 
 ### code/state/store.ts
-Configura a store do Redux, combinando os reducers dos slices de user, carrinho e produtos. Exporta os tipos para o estado raiz e despacho da aplicação.
+Configura a store do Redux, combinando reducers dos slices de user, carrinho e produtos. Exporta tipos para o estado raiz e despacho.
 
 ### code/state/userSlice.ts
-Define o slice do Redux para o user. Gerencia o estado de autenticação do user, incluindo ações para login e logout.
+Slice do Redux para user. Gerencia estado de autenticação com ações para login e logout.
 
 ### code/router.tsx
-Define as rotas da aplicação utilizando `react-router-dom`, incluindo as rotas para produtos, registro, carrinho e login.
+Define rotas da aplicação utilizando `react-router-dom`, incluindo rotas para produtos, registro, carrinho e login.
 
-Ligações entre ficheiros:
-Product.tsx<->productsSlice.ts (e cartSlice.ts)<->Product.ts<->database.ts<->productController.ts<->product.ts
-Register.tsx e UserLogin.tsx<->userSlice.ts<->database.ts<->userController.ts<->user.ts
+#### Ligações entre Ficheiros
+- `Product.tsx` ↔ `productsSlice.ts` (e `cartSlice.ts`) ↔ `Product.ts` ↔ `database.ts` ↔ `productController.ts` ↔ `product.ts`
+- `Register.tsx` e `UserLogin.tsx` ↔ `userSlice.ts` ↔ `database.ts` ↔ `userController.ts` ↔ `user.ts`
