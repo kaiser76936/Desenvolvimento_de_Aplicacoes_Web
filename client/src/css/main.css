@@ -189,7 +189,7 @@ nav ul li button:hover {
   margin-top: 15px;
   text-align: center;
 }
-/*---------------------------------------------ShoppingCart.css--------------------------------------------------------*/
+/*---------------------------------------------CSS for ShoppingCart--------------------------------------------------------*/
 .shopping-cart-container {
   padding: 20px;
   background-color: #f9f9f9;
@@ -231,9 +231,84 @@ nav ul li button:hover {
   background-color: #ff7875;
 }
 
+.finish-order-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+/* Style for the Finish Order button */
+.finish-order-button {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.finish-order-button:hover {
+  background-color: #45a049;
+}
+
 .empty-cart-message {
   text-align: center;
   font-size: 18px;
   color: #777;
   margin-top: 20px;
+}
+.cart-item-image {
+  width: 100px;
+  height: auto;
+  margin-right: 20px;
+}
+/*---------------------------------------------CSS for Orders--------------------------------------------------------*/
+
+.orders-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.order-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+}
+
+.order-item h2 {
+  margin-top: 0;
+  color: #333;
+}
+
+.order-item p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.order-item ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.order-item li {
+  padding: 5px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.order-item li:last-child {
+  border-bottom: none;
+}
+
+.orders-container h1 {
+  text-align: center;
+  color: #2c3e50;
+}
+
+.orders-container p {
+  text-align: center;
+  color: #777;
 }

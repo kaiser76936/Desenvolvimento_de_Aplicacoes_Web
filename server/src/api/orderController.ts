@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { orderDB, addOrder, removeOrder, updateOrder, productDB } from '../utils/database';
 import { Order, ProductOrder } from '../models/order';
 import { Product } from '../models/product';
@@ -109,6 +109,29 @@ router.delete('/:id', async (req, res) => {
     } catch (error) {
         res.status(500).json({ error: 'Failed to remove order' });
     }
+});
+
+/**
+ * Retrieves all orders for a specific user.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
+router.get('/user/:userId', async (req, res) => {
+    const userId = parseInt(req.params.userId, 10);
+    orderDB.find({ userId }, async (err: Error | null, orders: Order[]) => {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to fetch orders' });
+        }
+        try {
+            const populatedOrders = await Promise.all(orders.map(async (order) => ({
+                ...order,
+                products: await populateProducts(order.products),
+            })));
+            res.json(populatedOrders);
+        } catch (populateError) {
+            res.status(500).json({ error: 'Failed to populate products' });
+        }
+    });
 });
 
 export  const orderController = router;

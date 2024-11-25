@@ -22,11 +22,12 @@ export const Navbar: React.FC = () => {
       <ul>
         <li><Link to="/">Home</Link></li>
         <li><Link to="/products">Products</Link></li>
-        <li><Link to="/cart">Cart</Link></li>
         {!user.isLoggedIn ? (
           <li><Link to="/login">Login</Link></li>
         ) : (
           <>
+            <li><Link to="/cart">Cart</Link></li>
+            <Link to="/orders">Orders</Link>
             <li>{user.email}</li>
             <li><button onClick={handleLogout}>Logout</button></li>
           </>

@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import userReducer from './userSlice';
 import cartReducer from './cartSlice';
 import productsReducer from './productsSlice'; 
+import ordersReducer from './ordersSlice';
 
 /**
  * Configures the Redux store with the specified reducers.
@@ -16,7 +17,8 @@ export const store = configureStore({
   reducer: {
     user: userReducer,
     cart: cartReducer,
-    products: productsReducer, 
+    products: productsReducer,
+    orders: ordersReducer, 
   },
 });
 

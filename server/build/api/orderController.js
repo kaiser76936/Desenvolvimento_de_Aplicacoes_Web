@@ -114,4 +114,26 @@ router.delete('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* 
         res.status(500).json({ error: 'Failed to remove order' });
     }
 }));
+/**
+ * Retrieves all orders for a specific user.
+ * @param {express.Request} req - Express request object.
+ * @param {express.Response} res - Express response object.
+ */
+router.get('/user/:userId', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const userId = parseInt(req.params.userId, 10);
+    database_1.orderDB.find({ userId }, (err, orders) => __awaiter(void 0, void 0, void 0, function* () {
+        if (err) {
+            return res.status(500).json({ error: 'Failed to fetch orders' });
+        }
+        try {
+            const populatedOrders = yield Promise.all(orders.map((order) => __awaiter(void 0, void 0, void 0, function* () {
+                return (Object.assign(Object.assign({}, order), { products: yield populateProducts(order.products) }));
+            })));
+            res.json(populatedOrders);
+        }
+        catch (populateError) {
+            res.status(500).json({ error: 'Failed to populate products' });
+        }
+    }));
+}));
 exports.orderController = router;
