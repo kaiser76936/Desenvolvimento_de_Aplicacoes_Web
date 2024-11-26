@@ -97,7 +97,7 @@ project-root
 │   │   ├── css
 │   │   │   └── main.css
 │   │   ├── images
-│   │   │   └── image1.jpg   
+│   │   │   └── image1.png   
 │   │   └── code
 │   │       ├── components
 │   │       │   ├── app.tsx

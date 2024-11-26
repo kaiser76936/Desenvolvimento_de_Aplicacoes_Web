@@ -14,7 +14,7 @@ const products = [
     name: 'Product A',
     price: 10.99,
     description: 'Description of Product A', // Added this line
-    image: 'image1.jpg',
+    image: 'image1.png',
   },
   {
     id: 2,

@@ -18,15 +18,15 @@ const orders = [
         name: 'Product A',
         price: 10.99,
         quantity: 2,
-        description: 'Description of Product A', // Added this line
-        image: 'image1.jpg',
+        description: 'Description of Product A', 
+        image: 'image1.png',
       },
       {
         id: 2,
         name: 'Product B',
         price: 20.99,
         quantity: 1,
-        description: 'Description of Product B', // Added this line
+        description: 'Description of Product B', 
         image: 'image2.jpg',
       },
     ],
@@ -43,7 +43,7 @@ const orders = [
         name: 'Product C',
         price: 5.49,
         quantity: 5,
-        description: 'Description of Product C', // Added this line
+        description: 'Description of Product C', 
         image: 'image3.jpg',
       },
     ],

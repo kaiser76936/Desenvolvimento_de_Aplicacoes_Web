@@ -33,9 +33,9 @@ export const Product: React.FC = () => {
       <div className="product-list-container">
         {products.map(product => (
           <div key={product.id} className="product-container">
+            <span>{product.image && (<>{console.log('Product image:', product.image)} <img src={product.image}/></>)}</span>
             <span>{product.name} - ${product.price}</span>
             <p>{product.description}</p>
-            {product.image && <img src={product.image}/>}
             <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
           </div>
         ))}

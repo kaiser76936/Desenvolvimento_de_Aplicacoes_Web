@@ -13,10 +13,20 @@ export const Register: React.FC = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  const hashPassword = async (password: string) => {
+    const encoder = new TextEncoder();
+    const data = encoder.encode(password);
+    const hash = await crypto.subtle.digest('SHA-256', data);
+    return Array.from(new Uint8Array(hash))
+               .map(b => b.toString(16).padStart(2, '0'))
+               .join('');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await axios.post('/api/users', { name, email, password }); 
+      const hashedPassword = await hashPassword(password);
+      const response = await axios.post('/api/users', { name, email, password: hashedPassword });
       if (response.status === 201) {
         navigate('/login');
       }
@@ -40,7 +50,7 @@ export const Register: React.FC = () => {
           </div>
           <div>
             <label>Password:</label>
-            <input type="password" value={password} onChange={e => setPassword(e.target.value)} required /> {/* Add password field */}
+            <input type="password" value={password} onChange={e => setPassword(e.target.value)} required />
           </div>
           <button type="submit">Register</button>
         </form>
