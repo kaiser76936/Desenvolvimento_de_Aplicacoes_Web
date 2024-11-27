@@ -5,6 +5,8 @@ import { addToCart } from '../state/cartSlice';
 import { RootState, AppDispatch } from '../state/store';
 import type { Product as ProductType } from '../../../../server/src/models/product';
 
+const SERVER_URL = 'http://localhost:3000'; 
+
 /**
  * Product component that displays a list of products.
  * 
@@ -26,14 +28,18 @@ export const Product: React.FC = () => {
       window.alert('Please log in to add items to your cart.');
     }
   };
-
+  
   return (
     <div className="product-list">
       <h1>Products</h1>
       <div className="product-list-container">
         {products.map(product => (
           <div key={product.id} className="product-container">
-            <span>{product.image && (<>{console.log('Product image:', product.image)} <img src={product.image}/></>)}</span>
+            {product.image && (
+              <>
+                <img src={`/images/${product.image}`} />
+              </>
+            )}
             <span>{product.name} - ${product.price}</span>
             <p>{product.description}</p>
             <button onClick={() => handleAddToCart(product)}>Add to Cart</button>

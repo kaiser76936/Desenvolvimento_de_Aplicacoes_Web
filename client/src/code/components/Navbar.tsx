@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../state/store';
 import { logout } from '../state/userSlice';
@@ -12,9 +12,11 @@ import { logout } from '../state/userSlice';
 export const Navbar: React.FC = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.user);
+  const navigate = useNavigate();
 
   const handleLogout = () => {
     dispatch(logout());
+    navigate('/message?message=You have successfully logged out.&type=info');
   };
 
   return (
@@ -27,7 +29,7 @@ export const Navbar: React.FC = () => {
         ) : (
           <>
             <li><Link to="/cart">Cart</Link></li>
-            <Link to="/orders">Orders</Link>
+            <li><Link to="/orders">Orders</Link></li>
             <li>{user.email}</li>
             <li><button onClick={handleLogout}>Logout</button></li>
           </>

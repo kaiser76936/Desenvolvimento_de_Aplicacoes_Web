@@ -1,5 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import cors from 'cors';
+import path from 'path';
 import { productController } from './api/productController';
 import { userController } from './api/userController';
 import { orderController } from './api/orderController';
@@ -9,6 +11,11 @@ const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
+app.use(cors({ // Added CORS middleware
+  origin: 'http://localhost:9000',
+}));
+// Serve static files from the 'images' directory
+app.use('/images', express.static(path.join(__dirname, 'images')));
 
 // Routes
 app.use('/api/products', productController);

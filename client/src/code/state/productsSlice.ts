@@ -27,7 +27,7 @@ const initialState: ProductsState = {
  */
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
   const response = await axios.get<Product[]>('/api/products');
-  const basePath = '../../../images/'; 
+  const basePath = '/images/'; 
   return response.data.map(product => ({
     ...product,
     image: product.image ? basePath + product.image : undefined, 

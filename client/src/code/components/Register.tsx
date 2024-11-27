@@ -28,10 +28,11 @@ export const Register: React.FC = () => {
       const hashedPassword = await hashPassword(password);
       const response = await axios.post('/api/users', { name, email, password: hashedPassword });
       if (response.status === 201) {
-        navigate('/login');
+        navigate('/message?message=Registration successful! Please log in.&type=success');
       }
     } catch (error) {
       console.error('Error registering user', error);
+      navigate('/message?message=Error registering user. Please try again.&type=error');
     }
   };
 
