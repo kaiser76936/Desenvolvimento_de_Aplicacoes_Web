@@ -6,6 +6,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 interface UserState {
   email: string;
   isLoggedIn: boolean;
+  userId: number | null;
 }
 
 /**
@@ -16,6 +17,7 @@ interface UserState {
 const initialState: UserState = {
   email: '',
   isLoggedIn: false,
+  userId: null,
 };
 
 /**
@@ -23,7 +25,8 @@ const initialState: UserState = {
  */
 interface LoginPayload {
   email: string;
-  password: string; 
+  password: string;
+  userId: number | null;
 }
 
 /**
@@ -36,10 +39,14 @@ const userSlice = createSlice({
     login: (state, action: PayloadAction<LoginPayload>) => {
       state.email = action.payload.email;
       state.isLoggedIn = true;
+      state.userId = action.payload.userId; 
+      console.log('User logged in:', state.userId);
     },
     logout: (state) => {
       state.email = '';
       state.isLoggedIn = false;
+      state.userId = null;
+      console.log('User logged out');
     },
   },
 });

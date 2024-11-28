@@ -11,11 +11,12 @@ const port = process.env.PORT || 3000;
 
 // Middleware
 app.use(bodyParser.json());
-app.use(cors({ // Added CORS middleware
+app.use(cors({ 
   origin: 'http://localhost:9000',
 }));
+
 // Serve static files from the 'images' directory
-app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(path.join(__dirname, '../images')));
 
 // Routes
 app.use('/api/products', productController);

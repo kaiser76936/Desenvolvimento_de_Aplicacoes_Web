@@ -18,6 +18,8 @@ const initialState: ProductsState = {
   products: [],
 };
 
+const SERVER_URL = 'http://localhost:3000';
+
 /**
  * Async thunk for fetching products.
  * 
@@ -26,8 +28,8 @@ const initialState: ProductsState = {
  * @returns {Promise<Product[]>} The fetched products.
  */
 export const fetchProducts = createAsyncThunk('products/fetchProducts', async () => {
-  const response = await axios.get<Product[]>('/api/products');
-  const basePath = '/images/'; 
+  const response = await axios.get<Product[]>(`${SERVER_URL}/api/products`);
+  const basePath = `${SERVER_URL}/images/`; 
   return response.data.map(product => ({
     ...product,
     image: product.image ? basePath + product.image : undefined, 

@@ -7,10 +7,19 @@ import { Order } from '../../../../server/src/models/order';
 export const Orders: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { orders, status, error } = useSelector((state: RootState) => state.orders);
-  const userId = 1;
+  const userId = useSelector((state: RootState) => state.user.userId);
+
+  console.log('userId:', userId);
+  console.log('orders:', orders);
+  console.log('status:', status);
+  console.log('error:', error);
 
   useEffect(() => {
-    dispatch(fetchUserOrders(userId));
+    if (typeof userId === 'number') {
+      dispatch(fetchUserOrders(userId));
+    } else {
+      console.warn('Invalid userId:', userId);
+    }
   }, [dispatch, userId]);
 
   if (status === 'loading') {

@@ -9,6 +9,8 @@ server
 		|->products.db
 		|->users.db
 	|->dist
+	|->images
+		|->image1.png,image2.jpg,etc
 	|->node_modules
 	|->server
 		|->serverInfo.json

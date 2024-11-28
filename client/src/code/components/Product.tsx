@@ -37,7 +37,7 @@ export const Product: React.FC = () => {
           <div key={product.id} className="product-container">
             {product.image && (
               <>
-                <img src={`/images/${product.image}`} />
+                <img src={product.image} />
               </>
             )}
             <span>{product.name} - ${product.price}</span>
