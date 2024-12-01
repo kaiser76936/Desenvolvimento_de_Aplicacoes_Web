@@ -1,17 +1,19 @@
 import { Router, Request, Response } from 'express';
 import { userDB, addUser } from '../utils/database';
 import { User } from '../models/user';
-import crypto from 'crypto';
+import bcrypt from 'bcrypt';
 
+const SALT_ROUNDS = 10;
 const router = Router();
 
 /**
- * Hashes a password using SHA-256.
+ * Hashes a password using bcrypt.
  * @param password - The plain text password.
- * @returns The hashed password in hexadecimal format.
+ * @returns The hashed password.
  */
-const hashPassword = (password: string): string => {
-  return crypto.createHash('sha256').update(password).digest('hex');
+const hashPassword = async (password: string): Promise<string> => {
+  const salt = await bcrypt.genSalt(SALT_ROUNDS);
+  return bcrypt.hash(password, salt);
 };
 
 /**
@@ -23,9 +25,10 @@ const hashPassword = (password: string): string => {
 router.get('/', (req, res) => {
   userDB.find({}, (err: Error | null, users: User[]) => {
     if (err) {
-      return res.status(500).send('Error fetching users');
+      res.status(500).send('Error fetching users');
+    } else {
+      res.json(users);
     }
-    res.json(users);
   });
 });
 
@@ -38,9 +41,8 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   userDB.findOne({ id: parseInt(req.params.id) }, (err: Error | null, user: User) => {
     if (err) {
-      return res.status(500).send('Error fetching user');
-    }
-    if (user) {
+      res.status(500).send('Error fetching user');
+    } else if (user) {
       res.json(user);
     } else {
       res.status(404).send('User not found');
@@ -55,12 +57,13 @@ router.get('/:id', (req, res) => {
  * @param res - Express response object
  */
 router.post('/', async (req, res) => {
+  const { name, email, password } = req.body;
   try {
-    const { name, email, password } = req.body;
-    const hashedPassword = hashPassword(password);
+    const hashedPassword = await hashPassword(password);
     const { id } = await addUser({ name, email, password: hashedPassword });
     res.status(201).json({ id, name, email });
   } catch (error) {
+    console.error('Registration error:', error);
     res.status(500).send('Error creating user');
   }
 });
@@ -73,12 +76,11 @@ router.post('/', async (req, res) => {
  */
 router.post('/login', async (req: Request, res: Response) => {
   const { email, password } = req.body;
-
   try {
     const user = await new Promise<User | null>((resolve, reject) => {
       userDB.findOne({ email }, (err, doc) => {
-        if (err) return reject(err);
-        resolve(doc);
+        if (err) reject(err);
+        else resolve(doc);
       });
     });
 
@@ -86,15 +88,15 @@ router.post('/login', async (req: Request, res: Response) => {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
-    const hashedPassword = hashPassword(password);
-    if (hashedPassword !== user.password) {
+    const isMatch = await bcrypt.compare(password, user.password);
+    if (!isMatch) {
       return res.status(401).json({ error: 'Invalid credentials' });
     }
 
     res.json({ userId: user.id });
   } catch (error) {
     console.error('Login error:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    res.status(500).send('Login failed');
   }
 });
 

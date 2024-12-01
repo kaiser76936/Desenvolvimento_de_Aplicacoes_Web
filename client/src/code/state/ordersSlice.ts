@@ -28,6 +28,7 @@ export const fetchUserOrders = createAsyncThunk(
   async (userId: number, { rejectWithValue }) => {
     try {
       const response = await axios.get(`/api/orders/user/${userId}`);
+      console.log('API response:', response.data); 
       return response.data;
     } catch (err: any) {
       return rejectWithValue(err.response?.data || 'Failed to fetch orders');

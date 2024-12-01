@@ -13,26 +13,15 @@ export const Register: React.FC = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const hashPassword = async (password: string) => {
-    const encoder = new TextEncoder();
-    const data = encoder.encode(password);
-    const hash = await crypto.subtle.digest('SHA-256', data);
-    return Array.from(new Uint8Array(hash))
-               .map(b => b.toString(16).padStart(2, '0'))
-               .join('');
-  };
-
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const hashedPassword = await hashPassword(password);
-      const response = await axios.post('/api/users', { name, email, password: hashedPassword });
+      const response = await axios.post('/api/users', { name, email, password });
       if (response.status === 201) {
         navigate('/message?message=Registration successful! Please log in.&type=success');
       }
     } catch (error) {
-      console.error('Error registering user', error);
-      navigate('/message?message=Error registering user. Please try again.&type=error');
+      console.error(error);
     }
   };
 

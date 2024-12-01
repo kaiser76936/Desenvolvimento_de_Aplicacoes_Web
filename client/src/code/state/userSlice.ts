@@ -25,7 +25,6 @@ const initialState: UserState = {
  */
 interface LoginPayload {
   email: string;
-  password: string;
   userId: number | null;
 }
 

@@ -16,7 +16,7 @@ interface Product extends ServerProduct {
 const ShoppingCart: React.FC = () => {
   const dispatch: AppDispatch = useDispatch();
   const { products, status, error } = useSelector((state: RootState) => state.cart);
-  const userId = 1; 
+  const userId = useSelector((state: RootState) => state.user.userId); 
 
   useEffect(() => {
     dispatch(fetchCartItems());
@@ -27,7 +27,11 @@ const ShoppingCart: React.FC = () => {
   };
 
   const handleFinishOrder = () => {
-    dispatch(submitOrder(userId));
+    if (userId !== null) {
+      dispatch(submitOrder(userId));
+    } else {
+      console.error('User ID is null');
+    }
   };
 
   return (
