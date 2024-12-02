@@ -36,12 +36,6 @@ Script de teste para inserir dados na base de dados `users.db`.
 ### src/utils/database.ts
 Define e inicializa instâncias do NeDB para produtos, users e pedidos. Inclui funções para adicionar, remover e obter IDs únicos.
 
-### src/utils/logger.ts
-Contém funções para registro de logs e erros na aplicação, facilitando depuração e acompanhamento de eventos.
-
-### src/utils/validator.ts
-Fornece funções de validação para garantir integridade e formato correto dos dados, como `isEmail` e `isPositiveNumber`.
-
 ### src/main.ts
 Ponto de entrada da aplicação. Carrega configurações do servidor e inicia o servidor ouvindo no host e porta especificados.
 

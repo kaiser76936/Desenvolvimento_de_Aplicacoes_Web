@@ -1,69 +1,42 @@
-const Datastore = require('nedb');
-const path = require('path');
+const { addOrder } = require('../utils/database');
 
-// Initialize NeDB for orders
-const orderDB = new Datastore({
-  filename: path.join(__dirname, '../../data/orders.db'),
-  autoload: true,
-});
-
-// Define the orders to be added
+/**
+ * Represents an array of orders to be added to the database.
+ * @type {Array<Object>}
+ */
 const orders = [
   {
-    id: 1,
-    userId: 101,
-    products: [
+    userId:4,
+    products:[
       {
-        id: 1,
-        name: 'Product A',
-        price: 10.99,
-        quantity: 2,
-        description: 'Description of Product A', 
-        image: 'image1.png',
-      },
-      {
-        id: 2,
-        name: 'Product B',
-        price: 20.99,
+        id:2,
+        name: 'Kawasaki Z900RS',
+        price: 15950,
+        description: 'The Kawasaki Z900RS blends retro styling with modern performance, featuring a 948cc inline-four engine and classic design details.',
+        image:'http://localhost:3000/images/Kawasaki_Z900RS.jpg',
         quantity: 1,
-        description: 'Description of Product B', 
-        image: 'image2.jpg',
-      },
-    ],
-    status: 'Pending',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-  {
-    id: 2,
-    userId: 102,
-    products: [
-      {
-        id: 3,
-        name: 'Product C',
-        price: 5.49,
-        quantity: 5,
-        description: 'Description of Product C', 
-        image: 'image3.jpg',
-      },
+      }
     ],
     status: 'Completed',
     createdAt: new Date(),
   },
 ];
 
-// Function to add orders to the database
-const addOrders = () => {
-  orders.forEach(order => {
-    orderDB.insert(order, (err, newOrder) => {
-      if (err) {
-        console.error('Error adding order:', err);
-      } else {
-        console.log(`Order added with ID: ${newOrder.id}`);
-      }
-    });
-  });
+/**
+ * Asynchronously inserts orders into the database.
+ * @async
+ * @function insertOrders
+ */
+const insertOrders = async () => {
+  for (const order of orders) {
+    try {
+      const result = await addOrder(order);
+      console.log(`Order added with ID: ${result.id}`);
+    } catch (err) {
+      console.error('Error adding order:', err);
+    }
+  }
 };
 
 // Run the function
-addOrders();
+insertOrders();

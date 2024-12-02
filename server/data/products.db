@@ -1,3 +1,5 @@
-{"id":1,"name":"BMW","price":100,"description":"...","image":"image1.png","_id":"CJnUwt3JX1RAmvEF"}
-{"id":2,"name":"Baguete","price":4.99,"description":"...","image":"image2.jpg","_id":"GJGXNVUQpcAtJagO"}
-{"id":3,"name":"Supreme Brick","price":549,"description":"...","image":"image3.jpg","_id":"JlozpYQDavDHBuxd"}
+{"id":3,"name":"Moto Guzzi V7","price":9190,"description":"The Moto Guzzi V7 is a timeless classic, offering a 744cc V-twin engine, iconic design, and a smooth, enjoyable ride.","image":"Moto_Guzzi_V7.jpg","_id":"0tOIgf6lgynNedSj"}
+{"id":2,"name":"Kawasaki Z900RS","price":15950,"description":"The Kawasaki Z900RS blends retro styling with modern performance, featuring a 948cc inline-four engine and classic design details.","image":"Kawasaki_Z900RS.jpg","_id":"71X05gBShp1LZ6lf"}
+{"id":1,"name":"Indian FTR 1200","price":11990,"description":"The Indian FTR 1200 combines racing-inspired design with a powerful 1203cc V-twin engine, offering premium performance and style.","image":"Indian_FT_1200.jpg","_id":"QT2LQv7nKXinYoIl"}
+{"id":5,"name":"Vitpilen 701","price":9499,"description":"The Vitpilen 701 is a minimalist café racer with a 692cc single-cylinder engine, offering sharp performance and striking design.","image":"Vitpilen_701.jpg","_id":"i0vLwvK0y943jZ9q"}
+{"id":4,"name":"Triumph Trident","price":8495,"description":"The Triumph Trident is a sleek roadster with a 660cc triple engine, delivering dynamic performance and modern style.","image":"Triumph_Trident.jpg","_id":"imlqfEjwkKZy6WRF"}

@@ -3,7 +3,7 @@ import { userDB, addUser } from '../utils/database';
 import { User } from '../models/user';
 import bcrypt from 'bcrypt';
 
-const SALT_ROUNDS = 10;
+const SALT_ROUNDS = 10;//defines the number of hashing rounds bcrypt uses to generate a salt for hashing passwords
 const router = Router();
 
 /**

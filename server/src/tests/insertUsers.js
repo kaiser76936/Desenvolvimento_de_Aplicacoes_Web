@@ -1,31 +1,27 @@
-const Datastore = require('nedb');
-const path = require('path');
+//NOT UPDATED
+const { addProduct } = require('../utils/database');
 
-// Initialize NeDB for users
-const userDB = new Datastore({
-  filename: path.join(__dirname, '../../data/users.db'),
-  autoload: true,
-});
-
-// Define the users to be added
-const users = [
-  { id: 1, name: 'Kaiser', email: 'a76936@ualg.pt', password: 'password1' },
-  { id: 2, name: 'Mongo', email: 'mongol@mongo.com', password: 'password2' },
-  { id: 3, name: 'Estebe', email: 'baguetao@gmail.com', password: 'password3' },
+// Define the products to be added
+const products = [
+  {
+    id: 1,
+    name: 'admin',
+    password: '',
+    email: 'admin@ualg.pt',
+  },
 ];
 
-// Function to add users to the database
-const addUsers = () => {
-  users.forEach(user => {
-    userDB.insert(user, (err, newUser) => {
-      if (err) {
-        console.error('Error adding user:', err);
-      } else {
-        console.log(`User added with ID: ${newUser.id}`);
-      }
-    });
-  });
+// Function to add products to the database
+const insertProducts = async () => {
+  for (const product of products) {
+    try {
+      const result = await addProduct(product);
+      console.log(`Product added with ID: ${result.id}`);
+    } catch (err) {
+      console.error('Error adding product:', err);
+    }
+  }
 };
 
 // Run the function
-addUsers();
+insertProducts();
