@@ -37,6 +37,25 @@ export const fetchProducts = createAsyncThunk('products/fetchProducts', async ()
 });
 
 /**
+ * Async thunk for fetching specific products.
+ * 
+ * @async
+ * @function fetchProducts
+ * @returns {Promise<Product[]>} The fetched products.
+ */
+export const fetchProductsID = createAsyncThunk('products/fetchProducts', async () => {
+  const [response4, response2] = await Promise.all([
+    axios.get<Product>(`${SERVER_URL}/api/products/4`),
+    axios.get<Product>(`${SERVER_URL}/api/products/2`),
+  ]);
+  const basePath = `${SERVER_URL}/images/`;
+  return [response4.data, response2.data].map(product => ({
+    ...product,
+    image: product.image ? basePath + product.image : undefined,
+  }));
+});
+
+/**
  * Slice for managing products state.
  * 
  * @module productsSlice

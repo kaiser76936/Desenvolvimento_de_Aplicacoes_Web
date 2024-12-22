@@ -5,8 +5,6 @@ import { addToCart } from '../state/cartSlice';
 import { RootState, AppDispatch } from '../state/store';
 import type { Product as ProductType } from '../../../../server/src/models/product';
 
-const SERVER_URL = 'http://localhost:3000'; 
-
 /**
  * Product component that displays a list of products.
  * 
@@ -40,7 +38,8 @@ export const Product: React.FC = () => {
                 <img src={product.image} />
               </>
             )}
-            <span>{product.name} - ${product.price}</span>
+            <span>{product.name}</span>
+            <span>{product.price}€</span>
             <p>{product.description}</p>
             <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
           </div>
